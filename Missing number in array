@@ -1,0 +1,11 @@
+#User function Template for python3
+
+
+class Solution:
+    def missingNumber(self, array, n):
+        total_sum = (n * (n + 1)) // 2
+        array_sum = sum(array)
+        missing_number = total_sum - array_sum
+        
+        return missing_number        
+
