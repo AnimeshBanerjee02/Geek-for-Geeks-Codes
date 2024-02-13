@@ -1,0 +1,30 @@
+#User function Template for python3
+
+from collections import deque
+
+class Solution:
+    def max_of_subarrays(self, arr, n, k):
+        result = []
+        dq = deque()
+
+        for i in range(k):
+            while dq and arr[i] >= arr[dq[-1]]:
+                dq.pop()
+            dq.append(i)
+
+        for i in range(k, n):
+            result.append(arr[dq[0]])
+
+            while dq and dq[0] <= i - k:
+                dq.popleft()
+
+            while dq and arr[i] >= arr[dq[-1]]:
+                dq.pop()
+
+            dq.append(i)
+
+        result.append(arr[dq[0]])
+
+        return result
+
+
