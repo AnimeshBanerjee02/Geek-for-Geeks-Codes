@@ -1,0 +1,28 @@
+#include <unordered_map>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    bool isAnagram(string a, string b) {
+        if (a.length() != b.length())
+            return false;
+
+        unordered_map<char, int> freq;
+
+        for (char c : a) {
+            freq[c]++;
+        }
+
+        for (char c : b) {
+            freq[c]--;
+        }
+
+        for (auto& it : freq) {
+            if (it.second != 0)
+                return false;
+        }
+
+        return true;
+    }
+};
