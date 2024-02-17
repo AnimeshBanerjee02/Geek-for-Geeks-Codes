@@ -1,0 +1,17 @@
+class Solution:
+    def longestCommonPrefix(self, arr, n):
+        if not arr:
+            return -1
+        
+        min_length = min(len(s) for s in arr)
+        
+        lcp = ""
+        
+        for i in range(min_length):
+            current_char = arr[0][i]
+            if all(s[i] == current_char for s in arr):
+                lcp += current_char
+            else:
+                break
+        
+        return lcp if lcp else -1
