@@ -1,0 +1,11 @@
+class Solution:
+    def frequencyCount(self, arr, N, P):
+        frequency = [0] * N
+        
+        for i in range(N):
+            index = arr[i] - 1
+            if index >= 0 and index < N:
+                frequency[index] += 1
+        for i in range(N):
+            arr[i] = frequency[i]
+
