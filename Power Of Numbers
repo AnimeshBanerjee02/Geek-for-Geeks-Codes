@@ -1,0 +1,16 @@
+class Solution:
+    # Complete this function
+    def power(self, N, R):
+        MOD = 10**9 + 7
+
+        def power_helper(base, exponent):
+            result = 1
+            while exponent > 0:
+                if exponent % 2 == 1:
+                    result = (result * base) % MOD
+                base = (base * base) % MOD
+                exponent //= 2
+            return result
+
+        return power_helper(N, R)
+        
