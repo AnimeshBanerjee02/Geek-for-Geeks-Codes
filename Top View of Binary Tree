@@ -1,0 +1,39 @@
+#include <queue>
+#include <map>
+#include <vector>
+using namespace std;
+
+
+class Solution {
+public:
+    vector<int> topView(Node *root) {
+        vector<int> topViewNodes;
+        if (!root)
+            return topViewNodes;
+
+        map<int, int> m; 
+        queue<pair<Node *, int>> q; 
+
+        q.push({root, 0}); 
+
+        while (!q.empty()) {
+            Node *curr = q.front().first;
+            int hd = q.front().second;
+            q.pop();
+
+            if (m.find(hd) == m.end())
+                m[hd] = curr->data;
+
+            if (curr->left)
+                q.push({curr->left, hd - 1});
+
+            if (curr->right)
+                q.push({curr->right, hd + 1});
+        }
+
+        for (auto it = m.begin(); it != m.end(); ++it)
+            topViewNodes.push_back(it->second);
+
+        return topViewNodes;
+    }
+};
