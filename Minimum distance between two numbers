@@ -1,0 +1,30 @@
+#include <vector>
+#include <unordered_map>
+#include <climits>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int minDist(int a[], int n, int x, int y) {
+        int minXIndex = -1;
+        int minYIndex = -1; 
+        int minDistance = INT_MAX; 
+        
+        for (int i = 0; i < n; ++i) {
+            if (a[i] == x) 
+                minXIndex = i; 
+            
+            if (a[i] == y) 
+                minYIndex = i; 
+            
+            if (minXIndex != -1 && minYIndex != -1) 
+                minDistance = min(minDistance, abs(minXIndex - minYIndex)); 
+        }
+        
+        if (minXIndex == -1 || minYIndex == -1) 
+            return -1;
+        
+        return minDistance;
+    }
+};
