@@ -1,0 +1,14 @@
+from collections import Counter
+
+class Solution:
+    def minValue(self, s, k):
+        freq = Counter(s)
+        distinct_chars = sorted(freq.values(), reverse=True)
+        
+        for i in range(k):
+            if not distinct_chars:
+                break
+            distinct_chars[0] -= 1
+            distinct_chars.sort(reverse=True)
+        
+        return sum(x**2 for x in distinct_chars)
