@@ -1,0 +1,10 @@
+class Solution:
+    def Maximize(self, a, n):
+        a.sort()
+        
+        max_sum = 0
+        mod_value = 10**9 + 7
+        for i in range(n):
+            max_sum = (max_sum + (a[i] * i) % mod_value) % mod_value
+        
+        return max_sum
