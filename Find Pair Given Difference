@@ -1,0 +1,17 @@
+class Solution:
+    def findPair(self, arr, L, N):
+        arr.sort() 
+        left = 0
+        right = 1
+
+        while left < L and right < L:
+            diff = arr[right] - arr[left]
+            if diff == N:
+                return True
+            elif diff < N:
+                right += 1
+            else:
+                left += 1
+                if left == right:
+                    right += 1
+        return False
