@@ -1,0 +1,15 @@
+class Solution:
+    def NumberofElementsInIntersection(self, a, b, n, m):
+        if n == 0 or m == 0:
+            return 0
+        
+        set_a = set(a)
+        
+        intersection_count = 0
+        
+        for i in range(m):
+            if b[i] in set_a:
+                intersection_count += 1
+                set_a.remove(b[i])
+        
+        return intersection_count
