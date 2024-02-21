@@ -1,0 +1,40 @@
+class Solution:
+    def countWays(self, n, s):
+        MOD = 1003
+
+        # Function to evaluate whether a character is a boolean operator
+        def is_operator(c):
+            return c == '&' or c == '|' or c == '^'
+
+        # Initialize DP array
+        dp_true = [[0] * n for _ in range(n)]
+        dp_false = [[0] * n for _ in range(n)]
+
+        # Base case: single character
+        for i in range(n):
+            if s[i] == 'T':
+                dp_true[i][i] = 1
+                dp_false[i][i] = 0
+            else:
+                dp_true[i][i] = 0
+                dp_false[i][i] = 1
+
+        # Bottom-up DP approach
+        for length in range(3, n + 1, 2):
+            for i in range(n - length + 1):
+                j = i + length - 1
+                for k in range(i + 1, j, 2):
+                    if is_operator(s[k]):
+                        if s[k] == '&':
+                            dp_true[i][j] += dp_true[i][k - 1] * dp_true[k + 1][j]
+                            dp_false[i][j] += dp_true[i][k - 1] * dp_false[k + 1][j] + dp_false[i][k - 1] * dp_true[k + 1][j] + dp_false[i][k - 1] * dp_false[k + 1][j]
+                        elif s[k] == '|':
+                            dp_true[i][j] += dp_true[i][k - 1] * dp_true[k + 1][j] + dp_true[i][k - 1] * dp_false[k + 1][j] + dp_false[i][k - 1] * dp_true[k + 1][j]
+                            dp_false[i][j] += dp_false[i][k - 1] * dp_false[k + 1][j]
+                        elif s[k] == '^':
+                            dp_true[i][j] += dp_true[i][k - 1] * dp_false[k + 1][j] + dp_false[i][k - 1] * dp_true[k + 1][j]
+                            dp_false[i][j] += dp_true[i][k - 1] * dp_true[k + 1][j] + dp_false[i][k - 1] * dp_false[k + 1][j]
+                dp_true[i][j] %= MOD
+                dp_false[i][j] %= MOD
+
+        return dp_true[0][n - 1]
