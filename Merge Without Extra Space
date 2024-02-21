@@ -1,0 +1,33 @@
+class Solution:
+    
+    # Function to merge the arrays.
+    def merge(self, arr1, arr2, n, m):
+        # Create a new list to store the merged elements
+        merged = []
+
+        # Traverse both arrays
+        i = 0
+        j = 0
+        while i < n and j < m:
+            if arr1[i] < arr2[j]:
+                merged.append(arr1[i])
+                i += 1
+            else:
+                merged.append(arr2[j])
+                j += 1
+        
+        # Append remaining elements from arr1
+        while i < n:
+            merged.append(arr1[i])
+            i += 1
+        
+        # Append remaining elements from arr2
+        while j < m:
+            merged.append(arr2[j])
+            j += 1
+        
+        # Copy the merged elements back to arr1 and arr2
+        for k in range(n):
+            arr1[k] = merged[k]
+        for k in range(m):
+            arr2[k] = merged[n + k]
