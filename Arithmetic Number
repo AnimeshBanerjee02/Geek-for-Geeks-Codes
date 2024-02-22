@@ -1,0 +1,11 @@
+class Solution:
+    def inSequence(self, A, B, C):
+        # Handling the case when C is 0
+        if C == 0:
+            return 1 if A == B else 0
+
+        # Check if B can be reached from A using C
+        if (B - A) % C == 0 and ((B - A >= 0 and C >= 0) or (B - A <= 0 and C <= 0)):
+            return 1
+        else:
+            return 0
