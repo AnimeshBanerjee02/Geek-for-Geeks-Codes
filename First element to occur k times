@@ -1,0 +1,21 @@
+#include <unordered_map>
+using namespace std;
+
+class Solution{
+public:
+    int firstElementKTime(int a[], int n, int k) {
+        unordered_map<int, int> countMap;
+
+        // Iterate through the array to count the occurrences of each element
+        for (int i = 0; i < n; ++i) {
+            countMap[a[i]]++;
+            // If count becomes k, return the element
+            if (countMap[a[i]] == k) {
+                return a[i];
+            }
+        }
+
+        // If no such element is found, return -1
+        return -1;
+    }
+};
