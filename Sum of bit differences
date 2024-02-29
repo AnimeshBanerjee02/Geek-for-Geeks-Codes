@@ -1,0 +1,15 @@
+class Solution:
+    def sumBitDifferences(self, arr, n):
+        result = 0
+        
+        for i in range(32):
+            count_ones = 0
+            for num in arr:
+                if num & (1 << i):
+                    count_ones += 1
+            
+            count_zeros = n - count_ones
+            
+            result += count_ones * count_zeros
+        
+        return result * 2
