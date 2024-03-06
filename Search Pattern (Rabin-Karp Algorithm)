@@ -1,0 +1,14 @@
+class Solution:
+    def search(self, pattern, text):
+        # Initialize an empty list to store the indices
+        indices = []
+        
+        # Iterate through the text string to find occurrences of the pattern
+        for i in range(len(text) - len(pattern) + 1):
+            # Check if the substring starting at index i matches the pattern
+            if text[i:i + len(pattern)] == pattern:
+                # If it matches, append the 1-based index to the indices list
+                indices.append(i + 1)
+        
+        # Return the list of indices
+        return indices
