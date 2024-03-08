@@ -1,0 +1,21 @@
+class Solution:
+    def sameFreq(self, s):
+        freq = {}
+        for char in s:
+            freq[char] = freq.get(char, 0) + 1
+        
+        values = list(freq.values())
+        distinct_values = set(values)
+        
+        if len(distinct_values) == 1:
+            return True
+        
+        if len(distinct_values) == 2:
+            max_freq = max(values)
+            min_freq = min(values)
+            if values.count(max_freq) == 1 and max_freq - min_freq == 1:
+                return True
+            if values.count(min_freq) == 1 and min_freq == 1:
+                return True
+        
+        return False
