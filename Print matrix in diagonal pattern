@@ -1,0 +1,32 @@
+class Solution:
+    def matrixDiagonally(self, mat):
+        n = len(mat)
+        result = []
+        row, col = 0, 0
+        direction = 'up'
+
+        while row < n and col < n:
+            result.append(mat[row][col])
+
+            if direction == 'up':
+                if col == n - 1:
+                    row += 1
+                    direction = 'down'
+                elif row == 0:
+                    col += 1
+                    direction = 'down'
+                else:
+                    row -= 1
+                    col += 1
+            elif direction == 'down':
+                if row == n - 1:
+                    col += 1
+                    direction = 'up'
+                elif col == 0:
+                    row += 1
+                    direction = 'up'
+                else:
+                    row += 1
+                    col -= 1
+
+        return result
