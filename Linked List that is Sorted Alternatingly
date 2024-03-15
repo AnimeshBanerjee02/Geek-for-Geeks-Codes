@@ -1,0 +1,82 @@
+#include <iostream>
+using namespace std;
+
+/*
+struct Node
+{
+	int data;
+	struct Node *next;
+	
+	Node(int x){
+	    data =x;
+	    next = NULL;
+	}
+};
+*/
+
+class Solution
+{
+    public:
+    // Function to reverse a linked list
+    Node* reverseLinkedList(Node* head) {
+        Node* prev = nullptr;
+        Node* curr = head;
+        Node* next = nullptr;
+        
+        while (curr != nullptr) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        
+        return prev;
+    }
+    
+    // Function to merge two sorted linked lists
+    Node* mergeLinkedLists(Node* l1, Node* l2) {
+        if (!l1) return l2;
+        if (!l2) return l1;
+        
+        Node* dummy = new Node(-1);
+        Node* tail = dummy;
+        
+        while (l1 && l2) {
+            if (l1->data <= l2->data) {
+                tail->next = l1;
+                l1 = l1->next;
+            } else {
+                tail->next = l2;
+                l2 = l2->next;
+            }
+            tail = tail->next;
+        }
+        
+        tail->next = (l1 ? l1 : l2);
+        
+        return dummy->next;
+    }
+    
+    void sort(Node **head)
+    {
+        // Step 1: Divide the list into two separate lists
+        Node* asc_head = *head;
+        Node* desc_head = (*head)->next;
+        
+        Node* prev = nullptr;
+        Node* curr = *head;
+        
+        while (curr) {
+            Node* next = curr->next;
+            if (prev) prev->next = next;
+            prev = curr;
+            curr = next;
+        }
+        
+        // Step 2: Reverse the descending list
+        desc_head = reverseLinkedList(desc_head);
+        
+        // Step 3: Merge the two sorted lists
+        *head = mergeLinkedLists(asc_head, desc_head);
+    }
+};
