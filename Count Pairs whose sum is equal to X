@@ -1,0 +1,42 @@
+#include <unordered_map>
+using namespace std;
+
+/*
+Structure of the node of the linked list is as
+struct Node
+{
+    int data;
+    struct Node* next;
+
+    Node(int x){
+        data = x;
+        next = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    int countPairs(struct Node* head1, struct Node* head2, int x) {
+        unordered_map<int, int> freqMap;
+
+        // Count frequency of elements in the first linked list
+        while (head1 != nullptr) {
+            freqMap[head1->data]++;
+            head1 = head1->next;
+        }
+
+        int count = 0;
+
+        // Check pairs in the second linked list
+        while (head2 != nullptr) {
+            // Check if complement exists in the map
+            if (freqMap.find(x - head2->data) != freqMap.end()) {
+                count += freqMap[x - head2->data];
+            }
+            head2 = head2->next;
+        }
+
+        return count;
+    }
+};
