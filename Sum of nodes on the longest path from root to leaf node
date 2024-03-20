@@ -1,0 +1,55 @@
+/*
+structure of the node of the binary tree is as
+struct Node
+{
+    int data;
+    struct Node *left;
+    struct Node *right;
+
+    Node(int x)
+    {
+        data = x;
+        left = NULL;
+        right = NULL;
+    }
+};
+*/
+
+class Solution
+{
+public:
+    void findLongestPath(Node *root, int sum, int len, int &maxSum, int &maxLen, int &finalSum)
+    {
+        if (root == NULL)
+            return;
+        
+        // Increment length and add current node's value to sum
+        len++;
+        sum += root->data;
+
+        // If it's a leaf node and we have a longer path or the same path with larger sum
+        if (root->left == NULL && root->right == NULL) {
+            if (len > maxLen || (len == maxLen && sum > maxSum)) {
+                maxLen = len;
+                maxSum = sum;
+                finalSum = sum;
+            }
+            return;
+        }
+        
+        // Recursively traverse left and right subtrees
+        findLongestPath(root->left, sum, len, maxSum, maxLen, finalSum);
+        findLongestPath(root->right, sum, len, maxSum, maxLen, finalSum);
+    }
+    
+    int sumOfLongRootToLeafPath(Node *root)
+    {
+        int maxSum = INT_MIN; // To keep track of maximum sum
+        int maxLen = 0; // To keep track of maximum length
+        int finalSum = 0; // To store the sum of the nodes along the longest path
+        
+        findLongestPath(root, 0, 0, maxSum, maxLen, finalSum);
+        
+        return finalSum;
+    }
+};
