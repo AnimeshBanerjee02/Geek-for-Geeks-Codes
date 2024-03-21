@@ -1,0 +1,48 @@
+#include <vector>
+#include <queue>
+using namespace std;
+
+
+
+class Solution {
+public:
+    // Function to store the zig-zag order traversal of the tree in a list.
+    vector<int> zigZagTraversal(Node* root) {
+        vector<int> result;
+        if (!root)
+            return result;
+
+        queue<Node*> q;
+        q.push(root);
+        bool leftToRight = true; // Flag to alternate the direction
+
+        while (!q.empty()) {
+            int size = q.size();
+            vector<int> level(size);
+
+            for (int i = 0; i < size; ++i) {
+                Node* node = q.front();
+                q.pop();
+
+                // Determine the index based on the direction
+                int index = leftToRight ? i : size - 1 - i;
+
+                level[index] = node->data;
+
+                if (node->left)
+                    q.push(node->left);
+                if (node->right)
+                    q.push(node->right);
+            }
+
+            // Toggle the direction for the next level
+            leftToRight = !leftToRight;
+
+            // Append the level to the result vector
+            for (int val : level)
+                result.push_back(val);
+        }
+
+        return result;
+    }
+};
