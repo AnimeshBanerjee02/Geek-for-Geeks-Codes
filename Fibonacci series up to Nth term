@@ -1,0 +1,16 @@
+#User function Template for python3
+
+class Solution:
+    def series(self, n):
+        MOD = 10**9 + 7
+        
+        # Initialize an array to store Fibonacci numbers
+        fib = [0] * (n + 1)
+        fib[0], fib[1] = 0, 1
+        
+        # Compute Fibonacci numbers up to the nth term
+        for i in range(2, n + 1):
+            fib[i] = (fib[i - 1] + fib[i - 2]) % MOD
+        
+        # Return the Fibonacci series up to the nth term
+        return fib
