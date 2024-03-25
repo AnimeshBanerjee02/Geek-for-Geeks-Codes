@@ -1,0 +1,29 @@
+class Solution{
+public:	
+	vector<string> NBitBinary(int n)
+	{
+	    vector<string> ans;
+	    string cur = "";
+	    
+	    function<void(int, int)> permute = [&](int p, int c) {
+	        if(c < p - c) 
+	            return;
+	            
+	        if(p == n){
+                ans.push_back(cur);
+	            return;
+	        }  
+	        
+	        cur.push_back('1');
+	        permute(p + 1, c + 1);
+	        cur.pop_back();
+	        cur.push_back('0');
+	        permute(p + 1, c);
+	        cur.pop_back();
+	    };
+	    
+	    permute(0, 0);
+	    
+	    return ans;
+	}
+};
