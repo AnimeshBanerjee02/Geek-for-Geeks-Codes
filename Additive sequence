@@ -1,0 +1,30 @@
+class Solution:
+    def isAdditiveSequence(self, n):
+        length = len(n)
+        # Check all possible combinations of first two numbers
+        for i in range(1, length):
+            for j in range(i + 1, length):
+                first = n[:i]
+                second = n[i:j]
+                # If any of the first two numbers contain leading zeros, ignore
+                if (len(first) > 1 and first[0] == '0') or (len(second) > 1 and second[0] == '0'):
+                    continue
+                # Initialize variables for checking subsequent numbers
+                prev = int(first)
+                curr = int(second)
+                index = j
+                while index < length:
+                    # Calculate the next number in the sequence
+                    next_num = prev + curr
+                    next_str = str(next_num)
+                    # If the remaining string doesn't start with the next number, break
+                    if not n.startswith(next_str, index):
+                        break
+                    # Move to the next number in the sequence
+                    index += len(next_str)
+                    prev = curr
+                    curr = next_num
+                    # If the end of the string is reached, return True
+                    if index == length:
+                        return 1
+        return 0
