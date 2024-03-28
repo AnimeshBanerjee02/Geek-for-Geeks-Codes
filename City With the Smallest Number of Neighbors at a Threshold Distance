@@ -1,0 +1,60 @@
+// User function Template for C++
+class Solution {
+public:
+    int dijkstra(int curr, int n, int distThreshold, const vector<vector<pair<int, int>>>& graph) {
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+
+        vector<bool> visited(n, false); // Use clear boolean type
+        pq.push({0, curr});
+
+        int count = 0;
+        while (!pq.empty()) {
+            int dist = pq.top().first;
+            int node = pq.top().second;
+            pq.pop();
+
+            if (visited[node]) {
+                continue;
+            }
+
+            visited[node] = true;
+            if (dist > distThreshold) {
+                continue;
+            }
+
+            ++count;
+
+            for (const auto& neighbor : graph[node]) {
+                int neighborDist = neighbor.first;
+                int nextNode = neighbor.second;
+                if (!visited[nextNode]) {
+                    pq.push({dist + neighborDist, nextNode});
+                }
+            }
+        }
+        return count;
+    }
+
+    int findCity(int n, int m, vector<vector<int>>& edges, int distThreshold) {
+        vector<vector<pair<int, int>>> graph(n);
+
+        for (const auto& edge : edges) {
+            graph[edge[0]].push_back({edge[2], edge[1]});
+            graph[edge[1]].push_back({edge[2], edge[0]}); // Bidirectional connection
+        }
+
+        int bestCity = -1;
+        int minReachableCount = INT_MAX;
+
+        for (int i = 0; i < n; ++i) {
+            int reachableCount = dijkstra(i, n, distThreshold, graph);
+
+            if (reachableCount <= minReachableCount) {
+                minReachableCount = reachableCount;
+                bestCity = i;
+            }
+        }
+        return bestCity;
+    }
+};
+
