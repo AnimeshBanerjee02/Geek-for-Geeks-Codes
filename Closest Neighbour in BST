@@ -1,0 +1,29 @@
+//Structure of the Node of the BST is as
+struct Node {
+    int key;
+    Node* left, *right;
+};
+
+class Solution {
+public:
+    int findMaxForN(Node* root, int n) {
+        // Base case: if root is NULL, return -1
+        if (root == NULL)
+            return -1;
+
+        // If current node's key is greater than n, search in the left subtree
+        if (root->key > n)
+            return findMaxForN(root->left, n);
+
+        // Otherwise, the current node's key is less than or equal to n
+        // Check if there is a larger key in the right subtree
+        int maxVal = findMaxForN(root->right, n);
+        
+        // If there is no larger key in the right subtree, return the current node's key
+        if (maxVal == -1)
+            return root->key;
+
+        // Otherwise, return the maximum value found in the right subtree
+        return maxVal;
+    }
+};
