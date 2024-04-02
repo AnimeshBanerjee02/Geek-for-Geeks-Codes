@@ -1,0 +1,37 @@
+/*The Node structure is defined as
+struct Node {
+    int data;
+    Node *left;
+    Node *right;
+
+};
+*/
+
+class Solution
+{
+    public:
+    int minAbsDiff = INT_MAX;
+    int prevValue = -1;
+    
+    void inOrderTraversal(Node* root) {
+        if (root == nullptr)
+            return;
+        
+        inOrderTraversal(root->left);
+        
+        if (prevValue != -1)
+            minAbsDiff = min(minAbsDiff, abs(root->data - prevValue));
+        
+        prevValue = root->data;
+        
+        inOrderTraversal(root->right);
+    }
+    
+    int absolute_diff(Node *root)
+    {
+        // Perform in-order traversal to calculate the minimum absolute difference
+        inOrderTraversal(root);
+        
+        return minAbsDiff;
+    }
+};
