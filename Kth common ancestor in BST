@@ -1,0 +1,34 @@
+class Solution
+{
+public:
+    int kthCommonAncestor(Node *root, int k, int x, int y)
+    {
+        bool found = false;
+        int result = -1;
+        preorder(root, x, y, k, found, result);
+        return result;
+    }
+
+private:
+    bool preorder(Node *root, int x, int y, int &k, bool &found, int &result)
+    {
+        if (!root)
+            return false;
+
+        bool left = preorder(root->left, x, y, k, found, result);
+        bool right = preorder(root->right, x, y, k, found, result);
+        bool current = (root->data == x) || (root->data == y);
+
+        if ((left && right) || ((left || right) && current))
+        {
+            found = true;
+        }
+
+        if (found && (left || right) && --k == 0)
+        {
+            result = root->data;
+        }
+
+        return left || right || current;
+    }
+};
