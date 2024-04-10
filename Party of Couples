@@ -1,0 +1,6 @@
+class Solution:
+    def findSingle(self, n, arr):
+        single = 0
+        for num in arr:
+            single ^= num
+        return single
