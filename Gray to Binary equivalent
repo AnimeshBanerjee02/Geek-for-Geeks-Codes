@@ -1,0 +1,14 @@
+class Solution:    
+    ##Complete this function
+    # function to convert a given Gray equivalent n to Binary equivalent.
+    def grayToBinary(self, n):
+        # Initialize the binary equivalent with the MSB of the Gray code
+        binary = n
+        # Iterate through the bits starting from the second most significant bit
+        while n > 0:
+            # Right shift the Gray code by 1 (equivalent to removing the least significant bit)
+            n >>= 1
+            # XOR the current bit of the Gray code with the previous bit
+            binary ^= n
+        # Return the binary equivalent
+        return binary
