@@ -1,0 +1,20 @@
+class Solution:
+    def countElements(self, a, b, n, query, q):
+        max_val = max(max(a), max(b)) + 1
+        freq_b = [0] * max_val
+
+        # Preprocessing: Count frequencies of elements in b
+        for num in b:
+            freq_b[num] += 1
+        
+        # Create cumulative frequency array for b
+        for i in range(1, max_val):
+            freq_b[i] += freq_b[i - 1]
+        
+        result = []
+
+        # Process each query
+        for x in query:
+            result.append(freq_b[a[x]])
+        
+        return result
