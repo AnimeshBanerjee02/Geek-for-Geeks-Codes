@@ -1,0 +1,13 @@
+from sortedcontainers import SortedList
+
+class Solution:
+    def countPairs(self, arr, n):
+        st = SortedList()
+        st.add(arr[n - 1] * (n - 1))
+        ans = 0
+
+        for i in range(n - 2, -1, -1):
+            st.add(arr[i] * i)
+            ans += st.bisect_left(arr[i] * i)
+
+        return ans
