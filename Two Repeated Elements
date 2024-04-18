@@ -1,0 +1,11 @@
+#User function Template for python3
+
+class Solution:
+    def twoRepeated(self, arr, n):
+        out = []
+        for i in range(n + 2):
+            if arr[abs(arr[i])] > 0:
+                arr[abs(arr[i])] = -arr[abs(arr[i])]
+            else:
+                out.append(abs(arr[i]))
+        return out
