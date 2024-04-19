@@ -1,0 +1,28 @@
+#User function Template for python3
+class Solution:
+    def palindromicPartition(self, string):
+        n = len(string)
+        is_palindrome = [[False] * n for _ in range(n)]
+
+        min_cuts = [0] * n
+
+        for length in range(1, n + 1):
+            for start in range(n - length + 1):
+                end = start + length - 1
+                if length == 1 or (length == 2 and string[start] == string[end]):
+                    is_palindrome[start][end] = True
+                elif string[start] == string[end] and is_palindrome[start + 1][end - 1]:
+                    is_palindrome[start][end] = True
+
+        for i in range(n):
+            min_cuts[i] = i
+
+        for i in range(n):
+            if is_palindrome[0][i]:
+                min_cuts[i] = 0
+            else:
+                for j in range(i):
+                    if is_palindrome[j + 1][i]:
+                        min_cuts[i] = min(min_cuts[i], min_cuts[j] + 1)
+
+        return min_cuts[n - 1]
