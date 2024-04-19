@@ -1,0 +1,32 @@
+from collections import Counter
+
+class Solution:
+    def smallestWindow(self, s, p):
+        p_freq = Counter(p)
+        
+        min_window_size = float('inf')
+        min_window_start = 0
+        remaining_chars = len(p)
+        left = 0
+        
+        for right, char in enumerate(s):
+            if char in p_freq:
+                p_freq[char] -= 1
+                if p_freq[char] >= 0:
+                    remaining_chars -= 1
+            
+            while remaining_chars == 0:
+                if right - left + 1 < min_window_size:
+                    min_window_size = right - left + 1
+                    min_window_start = left
+                
+                if s[left] in p_freq:
+                    p_freq[s[left]] += 1
+                    if p_freq[s[left]] > 0:
+                        remaining_chars += 1
+                left += 1
+        
+        if min_window_size == float('inf'):
+            return "-1"
+        
+        return s[min_window_start:min_window_start + min_window_size]
