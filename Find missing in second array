@@ -1,0 +1,11 @@
+class Solution:
+    def findMissing(self, a, b, n, m):
+        b_set = set(b)
+        
+        missing_elements = []
+        
+        for num in a:
+            if num not in b_set:
+                missing_elements.append(num)
+        
+        return missing_elements
