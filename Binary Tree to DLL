@@ -1,0 +1,48 @@
+/* Structure for tree and linked list */
+// struct Node
+// {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+    
+//     Node(int x){
+//         data = x;
+//         left = right = NULL;
+//     }
+// };
+
+class Solution
+{
+public: 
+    // Recursive function to convert binary tree to doubly linked list
+    Node* bToDLLUtil(Node* root) {
+        if (!root) return nullptr;
+        
+        // Convert left subtree to DLL
+        Node* leftHead = bToDLLUtil(root->left);
+        
+        Node* predecessor = leftHead;
+        while (predecessor && predecessor->right) {
+            predecessor = predecessor->right;
+        }
+        
+        if (predecessor) {
+            predecessor->right = root;
+            root->left = predecessor;
+        }
+        
+        Node* rightHead = bToDLLUtil(root->right);
+        
+        if (rightHead) {
+            rightHead->left = root;
+            root->right = rightHead;
+        }
+        
+        return leftHead ? leftHead : root;
+    }
+    
+    Node* bToDLL(Node* root)
+    {
+        return bToDLLUtil(root);
+    }
+};
