@@ -1,0 +1,26 @@
+class Solution:
+    def MedianOfArrays(self, array1, array2):
+        n1, n2 = len(array1), len(array2)
+
+        arr3 = []
+        i, j = 0, 0
+        while i < n1 and j < n2:
+            if array1[i] < array2[j]:
+                arr3.append(array1[i])
+                i += 1
+            else:
+                arr3.append(array2[j])
+                j += 1
+
+        arr3.extend(array1[i:])
+        arr3.extend(array2[j:])
+
+        n = n1 + n2
+        if n % 2 == 1:
+            return arr3[n // 2]
+        else:
+            median = (arr3[n // 2] + arr3[(n // 2) - 1]) / 2.0
+            if median.is_integer():
+                return int(median)
+            else:
+                return median
