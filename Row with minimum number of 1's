@@ -1,0 +1,12 @@
+class Solution:
+    def minRow(self, n, m, a):
+        min_ones_count = float('inf')
+        min_row_index = -1
+        
+        for i in range(n):
+            ones_count = sum(a[i])  
+            if ones_count < min_ones_count:
+                min_ones_count = ones_count
+                min_row_index = i + 1 
+        
+        return min_row_index
