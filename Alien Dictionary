@@ -1,0 +1,35 @@
+from collections import defaultdict, deque
+
+class Solution:
+    def build_graph(self, alien_dict):
+        graph = defaultdict(list)
+        in_degree = {char: 0 for word in alien_dict for char in word}
+        
+        for i in range(len(alien_dict) - 1):
+            word1 = alien_dict[i]
+            word2 = alien_dict[i + 1]
+            for j in range(min(len(word1), len(word2))):
+                if word1[j] != word2[j]:
+                    graph[word1[j]].append(word2[j])
+                    in_degree[word2[j]] += 1
+                    break
+        
+        return graph, in_degree
+    
+    def topological_sort(self, graph, in_degree):
+        order = []
+        queue = deque([char for char in in_degree if in_degree[char] == 0])
+        
+        while queue:
+            char = queue.popleft()
+            order.append(char)
+            for neighbor in graph[char]:
+                in_degree[neighbor] -= 1
+                if in_degree[neighbor] == 0:
+                    queue.append(neighbor)
+        
+        return ''.join(order) if len(order) == len(in_degree) else ""
+    
+    def findOrder(self, alien_dict, N, K):
+        graph, in_degree = self.build_graph(alien_dict)
+        return self.topological_sort(graph, in_degree)
