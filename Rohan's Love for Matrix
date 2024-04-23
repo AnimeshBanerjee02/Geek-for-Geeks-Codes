@@ -1,0 +1,24 @@
+class Solution:
+    def multiply(self, A, B):
+        mod = 1000000007
+        res = [[0, 0], [0, 0]]
+        for i in range(2):
+            for j in range(2):
+                for k in range(2):
+                    res[i][j] += A[i][k] * B[k][j]
+                    res[i][j] %= mod
+        return res
+    
+    def power(self, A, n):
+        if n == 1:
+            return A
+        if n % 2 == 0:
+            half_pow = self.power(A, n // 2)
+            return self.multiply(half_pow, half_pow)
+        else:
+            return self.multiply(A, self.power(A, n - 1))
+        
+    def firstElement(self, n):
+        base_matrix = [[1, 1], [1, 0]]
+        power_matrix = self.power(base_matrix, n)
+        return power_matrix[1][0]
