@@ -1,0 +1,15 @@
+class Solution:
+    def permutation(self, s):
+        result = []
+        self.generate_permutations(list(s), 0, len(s), result)
+        result.sort()  
+        return result
+
+    def generate_permutations(self, arr, start, end, result):
+        if start == end:
+            result.append("".join(arr))
+        else:
+            for i in range(start, end):
+                arr[start], arr[i] = arr[i], arr[start]
+                self.generate_permutations(arr, start + 1, end, result)
+                arr[start], arr[i] = arr[i], arr[start]
