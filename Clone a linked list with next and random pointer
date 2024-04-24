@@ -1,0 +1,36 @@
+class Solution
+{
+    public:
+    Node *copyList(Node *head)
+    {
+        if (!head)
+            return nullptr;
+        
+        Node *curr = head;
+        while (curr) {
+            Node *next = curr->next;
+            curr->next = new Node(curr->data);
+            curr->next->next = next;
+            curr = next;
+        }
+        
+        curr = head;
+        while (curr) {
+            if (curr->arb)
+                curr->next->arb = curr->arb->next;
+            curr = curr->next ? curr->next->next : nullptr;
+        }
+        
+        Node *original = head;
+        Node *copyHead = head->next;
+        Node *copy = copyHead;
+        while (original && copy) {
+            original->next = original->next ? original->next->next : nullptr;
+            copy->next = copy->next ? copy->next->next : nullptr;
+            original = original->next;
+            copy = copy->next;
+        }
+        
+        return copyHead;
+    }
+};
