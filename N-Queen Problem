@@ -1,0 +1,33 @@
+class Solution:
+    def isSafe(self, board, row, col, n):
+        for i in range(row):
+            if board[i][col] == 1:
+                return False
+        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+        for i, j in zip(range(row, -1, -1), range(col, n)):
+            if board[i][j] == 1:
+                return False
+        return True
+    
+    def solveNQueens(self, board, row, n, res):
+        if row == n:
+            solution = []
+            for i in range(n):
+                for j in range(n):
+                    if board[i][j] == 1:
+                        solution.append(j + 1)
+            res.append(solution)
+            return
+        for col in range(n):
+            if self.isSafe(board, row, col, n):
+                board[row][col] = 1
+                self.solveNQueens(board, row + 1, n, res)
+                board[row][col] = 0
+    
+    def nQueen(self, n):
+        board = [[0] * n for _ in range(n)]
+        res = []
+        self.solveNQueens(board, 0, n, res)
+        return res
