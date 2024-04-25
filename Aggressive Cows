@@ -1,0 +1,27 @@
+class Solution:
+    def countCows(self, stalls, distance):
+        count = 1
+        prev_position = stalls[0]
+        
+        for position in stalls[1:]:
+            if position - prev_position >= distance:
+                count += 1
+                prev_position = position
+        
+        return count
+    
+    def solve(self, n, k, stalls):
+        stalls.sort()
+        low = 1
+        high = stalls[-1] - stalls[0]
+        result = 0
+        
+        while low <= high:
+            mid = (low + high) // 2
+            if self.countCows(stalls, mid) >= k:
+                result = mid
+                low = mid + 1
+            else:
+                high = mid - 1
+        
+        return result
