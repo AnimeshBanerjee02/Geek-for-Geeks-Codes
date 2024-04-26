@@ -1,0 +1,36 @@
+import sys
+
+class Solution:
+    def solveWordWrap(self, word_lengths, line_width):
+	    word_count = len(word_lengths)
+	    dp = [0] * word_count
+	    ans = [0] * word_count
+	    dp[word_count - 1] = 0
+	    ans[word_count - 1] = word_count - 1
+	    
+	    for i in range(word_count - 2, -1, -1):
+	        curr_len = -1
+	        dp[i] = sys.maxsize
+	        for j in range(i, word_count):
+	            curr_len += (word_lengths[j] + 1)
+	            if curr_len > line_width:
+	                break
+	            if j  == word_count - 1:
+	                cost = 0
+	            else:
+	                cost = ((line_width - curr_len)*(line_width - curr_len) + dp[j + 1])
+	            if cost < dp[i]:
+	                dp[i] = cost
+	                ans[i] = j
+	    
+	    i = 0
+	    total_cost = 0
+	    while i < word_count:
+	        pos = 0
+	        for j in range(i, ans[i] + 1):
+	            pos = pos + word_lengths[j]
+	        extra_spaces = ans[i] - i
+	        if ans[i] + 1 != word_count:
+	            total_cost = total_cost + (line_width - extra_spaces - pos) ** 2
+	        i = ans[i] + 1
+	    return total_cost 
