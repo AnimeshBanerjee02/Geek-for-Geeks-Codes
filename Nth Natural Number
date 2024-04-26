@@ -1,0 +1,11 @@
+class Solution:
+    def findNth(self, N):
+        result = 0
+        power = 1  
+        
+        while N > 0:
+            result += power * (N % 9)
+            N //= 9
+            power *= 10
+        
+        return result
