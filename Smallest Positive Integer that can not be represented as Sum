@@ -1,0 +1,13 @@
+class Solution:
+    def smallestpositive(self, array, n):
+        array.sort()
+
+        max_sum = 0
+
+        for num in array:
+            if num > max_sum + 1:
+                return max_sum + 1
+
+            max_sum += num
+
+        return max_sum + 1
