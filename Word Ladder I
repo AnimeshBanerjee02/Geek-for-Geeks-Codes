@@ -1,0 +1,23 @@
+from collections import deque
+
+class Solution:
+    def wordLadderLength(self, startWord, targetWord, wordList):
+        wordSet = set(wordList)
+
+        queue = deque([(startWord, 1)])
+        visited = set([startWord])
+
+        while queue:
+            currentWord, length = queue.popleft()
+
+            if currentWord == targetWord:
+                return length
+
+            for i in range(len(currentWord)):
+                for char in 'abcdefghijklmnopqrstuvwxyz':
+                    nextWord = currentWord[:i] + char + currentWord[i+1:]
+                    if nextWord in wordSet and nextWord not in visited:
+                        queue.append((nextWord, length + 1))
+                        visited.add(nextWord)
+
+        return 0
