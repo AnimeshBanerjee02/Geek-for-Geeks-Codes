@@ -1,0 +1,25 @@
+class Solution:
+    def betterString(self, str1, str2):
+        def countDistinctSubsequences(s):
+            last_index = {}
+
+            dp = [0] * (len(s) + 1)
+            dp[0] = 1 
+
+            for i, char in enumerate(s):
+                dp[i + 1] = 2 * dp[i]
+
+                if char in last_index:
+                    dp[i + 1] -= dp[last_index[char]]
+
+                last_index[char] = i
+
+            return dp[-1]
+
+        count1 = countDistinctSubsequences(str1)
+        count2 = countDistinctSubsequences(str2)
+
+        if count1 >= count2:
+            return str1
+        else:
+            return str2
