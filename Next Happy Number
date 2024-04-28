@@ -1,0 +1,13 @@
+class Solution:
+    def is_happy(self, num):
+        seen = set()
+        while num != 1 and num not in seen:
+            seen.add(num)
+            num = sum(int(digit) ** 2 for digit in str(num))
+        return num == 1
+    
+    def nextHappy(self, N):
+        next_num = N + 1
+        while not self.is_happy(next_num):
+            next_num += 1
+        return next_num
