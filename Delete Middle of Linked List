@@ -1,0 +1,20 @@
+class Solution{
+public:
+    Node* deleteMid(Node* head) {
+        if (head == nullptr || head->next == nullptr)
+            return nullptr;
+        
+        Node *slow_ptr = head, *fast_ptr = head, *prev_ptr = nullptr;
+        
+        while (fast_ptr != nullptr && fast_ptr->next != nullptr) {
+            prev_ptr = slow_ptr;
+            slow_ptr = slow_ptr->next;
+            fast_ptr = fast_ptr->next->next;
+        }
+        
+        prev_ptr->next = slow_ptr->next;
+        delete slow_ptr;
+        
+        return head;
+    }
+};
