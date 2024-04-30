@@ -1,0 +1,50 @@
+class Solution:
+    def addTwoLists(self, num1, num2):
+        # Reverse both lists to simplify addition.
+        num1 = self.reverse(num1)
+        num2 = self.reverse(num2)
+
+        sum = None
+        carry = 0
+
+        while num1 or num2 or carry:
+            newVal = carry
+
+            if num1:
+                newVal += num1.data
+                num1 = num1.next
+            if num2:
+                newVal += num2.data
+                num2 = num2.next
+
+            carry = newVal // 10
+            newVal %= 10
+
+            newNode = Node(newVal)
+            newNode.next = sum
+            sum = newNode
+
+        return self.removeLeadingZeros(sum)
+
+    def reverse(self, head):
+        prev = None
+        current = head
+
+        while current:
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+
+        return prev
+
+    def removeLeadingZeros(self, head):
+        current = head
+        prev = None
+
+        while current and current.data == 0:
+            prev = current
+            current = current.next
+            prev.next = None
+
+        return current if current else Node(0)
