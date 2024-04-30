@@ -1,0 +1,9 @@
+from itertools import permutations
+
+class Solution:
+    def find_permutation(self, S):
+        perms = sorted(set(permutations(S)))
+
+        perm_strings = [''.join(perm) for perm in perms]
+
+        return perm_strings
