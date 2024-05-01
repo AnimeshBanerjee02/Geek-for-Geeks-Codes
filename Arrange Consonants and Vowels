@@ -1,0 +1,46 @@
+class Solution {
+  public:
+    struct Node* arrangeCV(Node* head) {
+        if (head == NULL || head->next == NULL)
+            return head; 
+        
+        Node *vowelHead = NULL, *vowelTail = NULL;
+        Node *consonantHead = NULL, *consonantTail = NULL;
+
+        Node *curr = head;
+        while (curr != NULL) {
+            if (isVowel(curr->data)) {
+                if (vowelHead == NULL) {
+                    vowelHead = curr;
+                    vowelTail = curr;
+                } else {
+                    vowelTail->next = curr;
+                    vowelTail = curr;
+                }
+            } else {
+                if (consonantHead == NULL) {
+                    consonantHead = curr;
+                    consonantTail = curr;
+                } else {
+                    consonantTail->next = curr;
+                    consonantTail = curr;
+                }
+            }
+            curr = curr->next;
+        }
+
+        if (vowelHead == NULL)
+            return consonantHead;
+        else {
+            vowelTail->next = consonantHead;
+            if (consonantTail != NULL)
+                consonantTail->next = NULL; 
+            return vowelHead;
+        }
+    }
+
+    bool isVowel(char ch) {
+        ch = tolower(ch);
+        return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
+    }
+};
