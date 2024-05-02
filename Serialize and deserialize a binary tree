@@ -1,0 +1,54 @@
+#User function Template for python3
+
+
+from collections import deque
+
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.left = None
+        self.right = None
+
+class Solution:
+    # Function to serialize a tree and return a list containing nodes of the tree.
+    def serialize(self, root):
+        arr = []
+        if not root:
+            return arr
+        
+        queue = deque([root])
+        
+        while queue:
+            curr = queue.popleft()
+            if curr:
+                arr.append(curr.data)
+                queue.append(curr.left)
+                queue.append(curr.right)
+            else:
+                arr.append(float('-inf'))
+        
+        return arr
+
+    # Function to deserialize a list and construct the tree.
+    def deSerialize(self, A):
+        if not A or A[0] == float('-inf'):
+            return None
+        
+        root = Node(A[0])
+        queue = deque([root])
+        i = 1
+        
+        while queue and i < len(A):
+            curr = queue.popleft()
+            
+            if A[i] != float('-inf'):
+                curr.left = Node(A[i])
+                queue.append(curr.left)
+            i += 1
+            
+            if i < len(A) and A[i] != float('-inf'):
+                curr.right = Node(A[i])
+                queue.append(curr.right)
+            i += 1
+        
+        return root
