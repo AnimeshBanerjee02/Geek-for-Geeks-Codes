@@ -1,0 +1,41 @@
+class Solution:
+    def find(self, arr, n, x):
+        def find_first(arr, n, x):
+            low, high = 0, n - 1
+            first_occurrence = -1
+            
+            while low <= high:
+                mid = low + (high - low) // 2
+                
+                if arr[mid] == x:
+                    first_occurrence = mid
+                    high = mid - 1 
+                elif arr[mid] < x:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+            
+            return first_occurrence
+        
+        def find_last(arr, n, x):
+            low, high = 0, n - 1
+            last_occurrence = -1
+            
+            while low <= high:
+                mid = low + (high - low) // 2
+                
+                if arr[mid] == x:
+                    last_occurrence = mid
+                    low = mid + 1  
+                elif arr[mid] < x:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+            
+            return last_occurrence
+        
+        first = find_first(arr, n, x)
+        last = find_last(arr, n, x)
+        
+        return (first, last)
+
