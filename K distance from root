@@ -1,0 +1,33 @@
+#include <vector>
+
+
+class Solution
+{
+public:
+    vector<int> Kdistance(struct Node *root, int k)
+    {
+        vector<int> result;
+        if (root == nullptr) 
+            return result;
+        
+        dfs(root, k, 0, result);
+        
+        return result;
+    }
+    
+private:
+    void dfs(Node* node, int k, int depth, vector<int>& result)
+    {
+        if (node == nullptr)
+            return;
+        
+        if (depth == k) 
+        {
+            result.push_back(node->data);
+            return;
+        }
+        
+        dfs(node->left, k, depth + 1, result);
+        dfs(node->right, k, depth + 1, result);
+    }
+};
