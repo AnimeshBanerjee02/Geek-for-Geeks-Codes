@@ -1,0 +1,13 @@
+class Solution:
+    def evenlyDivides(self, N):
+        count = 0
+        num = N
+
+        while num > 0:
+            digit = num % 10
+            num //= 10
+
+            if digit != 0 and N % digit == 0:
+                count += 1
+
+        return count
