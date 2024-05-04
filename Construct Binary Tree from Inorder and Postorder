@@ -1,0 +1,27 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    Node* buildTreeHelper(int in[], int post[], int inStart, int inEnd, int postStart, int postEnd, std::unordered_map<int, int>& indexMap) {
+        if (inStart > inEnd || postStart > postEnd)
+            return nullptr;
+
+        int rootValue = post[postEnd];
+        Node* root = new Node(rootValue);
+
+        int rootIndex = indexMap[rootValue];
+
+        root->left = buildTreeHelper(in, post, inStart, rootIndex - 1, postStart, postStart + rootIndex - inStart - 1, indexMap);
+        root->right = buildTreeHelper(in, post, rootIndex + 1, inEnd, postStart + rootIndex - inStart, postEnd - 1, indexMap);
+
+        return root;
+    }
+
+    Node *buildTree(int in[], int post[], int n) {
+        std::unordered_map<int, int> indexMap;
+        for (int i = 0; i < n; ++i)
+            indexMap[in[i]] = i;
+
+        return buildTreeHelper(in, post, 0, n - 1, 0, n - 1, indexMap);
+    }
+};
