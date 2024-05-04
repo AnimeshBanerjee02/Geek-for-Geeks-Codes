@@ -1,0 +1,14 @@
+class Solution:
+    def allPairs(self, A, B, N, M, X):
+        set_A = set(A)
+        pairs = []
+
+        for num in B:
+            complement = X - num
+
+            if complement in set_A:
+                pairs.append((complement, num))
+
+        pairs.sort()
+
+        return pairs
