@@ -1,0 +1,35 @@
+#include <iostream>
+#include <map>
+#include <vector>
+
+using namespace std;
+
+
+class Solution {
+public:
+    vector<int> verticalSum(Node *root) {
+        vector<int> result;
+        if (root == nullptr)
+            return result;
+        
+        map<int, int> verticalSums;
+        verticalSumUtil(root, 0, verticalSums);
+        
+        for (auto it = verticalSums.begin(); it != verticalSums.end(); ++it) {
+            result.push_back(it->second);
+        }
+        
+        return result;
+    }
+    
+private:
+    void verticalSumUtil(Node *node, int col, map<int, int> &verticalSums) {
+        if (node == nullptr)
+            return;
+        
+        verticalSums[col] += node->data;
+        
+        verticalSumUtil(node->left, col - 1, verticalSums);
+        verticalSumUtil(node->right, col + 1, verticalSums);
+    }
+};
