@@ -1,0 +1,34 @@
+#include <queue>
+#include <algorithm> 
+
+using namespace std;
+
+
+vector<int> reverseLevelOrder(Node *root) {
+    vector<int> result;
+    if (root == nullptr)
+        return result;
+
+    queue<Node*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int levelSize = q.size();
+        vector<int> levelNodes;
+
+        for (int i = 0; i < levelSize; ++i) {
+            Node* current = q.front();
+            q.pop();
+            levelNodes.push_back(current->data);
+
+            if (current->left)
+                q.push(current->left);
+            if (current->right)
+                q.push(current->right);
+        }
+
+        result.insert(result.begin(), levelNodes.begin(), levelNodes.end());
+    }
+
+    return result;
+}
