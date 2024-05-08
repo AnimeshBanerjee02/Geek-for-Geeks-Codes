@@ -1,0 +1,36 @@
+#include <vector>
+using namespace std;
+
+
+
+class Solution {
+public:
+    void findPaths(Node* root, vector<int>& path, vector<vector<int>>& result) {
+        if (root == nullptr)
+            return;
+
+        // Add current node to the current path
+        path.push_back(root->data);
+
+        // If it's a leaf node, add the path to the result
+        if (root->left == nullptr && root->right == nullptr) {
+            result.push_back(path);
+        }
+
+        // Recursively traverse left and right subtrees
+        findPaths(root->left, path, result);
+        findPaths(root->right, path, result);
+
+        // Remove the current node from the path to backtrack
+        path.pop_back();
+    }
+
+    vector<vector<int>> Paths(Node* root) {
+        vector<vector<int>> result;
+        vector<int> path;
+
+        findPaths(root, path, result);
+
+        return result;
+    }
+};
