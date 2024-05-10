@@ -1,0 +1,22 @@
+class Solution:
+    
+    def CombinationSum2(self, arr, n, k):
+        result = []
+        arr.sort()  # Sort the array to handle duplicates and generate combinations in non-decreasing order
+        self.generate_combinations(arr, 0, [], k, result)
+        return result
+    
+    def generate_combinations(self, arr, start, path, target, result):
+        if target == 0:
+            result.append(path[:])  # Append a copy of the current combination to the result
+            return
+        if target < 0:
+            return
+        
+        for i in range(start, len(arr)):
+            if i > start and arr[i] == arr[i - 1]:
+                continue  # Skip duplicates to avoid duplicate combinations
+            
+            path.append(arr[i])  # Add current element to the combination
+            self.generate_combinations(arr, i + 1, path, target - arr[i], result)  # Recursive call with updated target and start index
+            path.pop()
