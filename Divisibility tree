@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int ans;
+    
+    int dfs(int node, vector<int> adj[], vector<bool>& visited, vector<int>& subtreeSize) {
+        visited[node] = true;
+        int currSize = 1; // Including current node
+        
+        for (int i = 0; i < adj[node].size(); i++) {
+            int child = adj[node][i];
+            if (!visited[child]) {
+                currSize += dfs(child, adj, visited, subtreeSize);
+            }
+        }
+        
+        subtreeSize[node] = currSize;
+        if (currSize % 2 == 0 && node != 1) {
+            ans++; // Edge to parent needs to be removed
+            return 0; // Subtree rooted at 'node' can be ignored
+        }
+        
+        return currSize;
+    }
+    
+    int minimumEdgeRemove(int n, vector<vector<int>>& edges) {
+        ans = 0;
+        vector<int> adj[n+1];
+        
+        for (int i = 0; i < edges.size(); i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        
+        vector<bool> visited(n+1, false);
+        vector<int> subtreeSize(n+1, 0);
+        
+        dfs(1, adj, visited, subtreeSize);
+        
+        return ans;
+    }
+};
