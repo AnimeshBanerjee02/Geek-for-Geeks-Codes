@@ -1,0 +1,28 @@
+from typing import List
+
+class Solution:
+    def findClosest(self, n: int, k: int, arr: List[int]) -> int:
+        if n == 0:
+            return -1  
+
+        low, high = 0, n - 1
+        while low < high:
+            mid = (low + high) // 2
+            if arr[mid] < k:
+                low = mid + 1
+            else:
+                high = mid
+        if low == 0:
+            return arr[0]
+        if low == n:
+            return arr[n - 1]
+        
+        left = arr[low - 1]
+        right = arr[low]
+        
+        if abs(left - k) < abs(right - k):
+            return left
+        elif abs(left - k) > abs(right - k):
+            return right
+        else:
+            return max(left, right)
