@@ -1,0 +1,12 @@
+class Solution:
+    def PowMod(self, x, n, m):
+        result = 1
+        x = x % m  # Reduce x modulo m initially to handle large x values
+        
+        while n > 0:
+            if n % 2 == 1:  # If n is odd, multiply x with the result
+                result = (result * x) % m
+            n = n // 2  # Reduce n by half
+            x = (x * x) % m  # Square x and reduce it modulo m
+        
+        return result
