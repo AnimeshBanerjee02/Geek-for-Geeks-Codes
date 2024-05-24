@@ -1,0 +1,23 @@
+from typing import List
+
+class Solution:
+    def countPartitions(self, n: int, d: int, arr: List[int]) -> int:
+        MOD = 10**9 + 7
+        sum_arr = sum(arr)
+        
+        # Check if (sum_arr + d) is even and (sum_arr + d) / 2 is a valid target
+        if (sum_arr + d) % 2 != 0:
+            return 0
+        
+        target = (sum_arr + d) // 2
+        
+        # Initialize dp array
+        dp = [0] * (target + 1)
+        dp[0] = 1  # There's one way to make zero sum, using no elements
+        
+        # Populate dp array
+        for num in arr:
+            for j in range(target, num - 1, -1):
+                dp[j] = (dp[j] + dp[j - num]) % MOD
+        
+        return dp[target]
