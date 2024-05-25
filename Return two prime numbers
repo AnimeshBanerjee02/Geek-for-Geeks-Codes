@@ -1,0 +1,19 @@
+class Solution:
+    def primeDivision(self, n):
+        # Sieve of Eratosthenes to generate primes up to n
+        def sieve(n):
+            primes = [True] * (n + 1)
+            primes[0] = primes[1] = False
+            p = 2
+            while p * p <= n:
+                if primes[p]:
+                    for i in range(p * p, n + 1, p):
+                        primes[i] = False
+                p += 1
+            return primes
+        
+        primes = sieve(n)
+        
+        for i in range(2, n // 2 + 1):
+            if primes[i] and primes[n - i]:
+                return i, n - i
