@@ -1,0 +1,46 @@
+class Solution:
+    def generateNextPalindrome(self, num, n):
+        def all_nines(num):
+            return all(digit == 9 for digit in num)
+
+        def mirror_left_to_right(num, n):
+            mid = n // 2
+            if n % 2 == 0:
+                left = num[:mid]
+                right = left[::-1]
+                return left + right
+            else:
+                left = num[:mid + 1]
+                right = left[:-1][::-1]
+                return left + right
+
+        if all_nines(num):
+            return [1] + [0] * (n - 1) + [1]
+
+        palin = mirror_left_to_right(num, n)
+
+        if palin > num:
+            return palin
+
+        if n % 2 == 0:
+            mid_left = n // 2 - 1
+            mid_right = n // 2
+        else:
+            mid_left = n // 2
+            mid_right = n // 2
+
+        carry = 1
+        while mid_left >= 0 and carry:
+            num[mid_left] += carry
+            carry = num[mid_left] // 10
+            num[mid_left] = num[mid_left] % 10
+            num[mid_right] = num[mid_left]
+            mid_left -= 1
+            mid_right += 1
+
+        if carry:
+            num = [1] + [0] * (n - 1) + [1]
+        else:
+            num = mirror_left_to_right(num, n)
+
+        return num
