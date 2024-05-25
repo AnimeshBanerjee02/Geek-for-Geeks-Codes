@@ -1,0 +1,23 @@
+class Solution:
+    def is_feasible(self, arr, n, k, mid):
+        total = 0
+        painters = 1
+        for length in arr:
+            total += length
+            if total > mid:
+                total = length
+                painters += 1
+        return painters <= k
+
+    def minTime(self, arr, n, k):
+        low = max(arr)
+        high = sum(arr)
+
+        while low < high:
+            mid = low + (high - low) // 2
+            if self.is_feasible(arr, n, k, mid):
+                high = mid
+            else:
+                low = mid + 1
+
+        return low
