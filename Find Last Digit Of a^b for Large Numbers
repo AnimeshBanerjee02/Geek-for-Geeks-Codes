@@ -1,0 +1,35 @@
+#User function Template for python3
+
+class Solution:
+    def getLastDigit(self, a: str, b: str) -> int:
+        last_digit_a = int(a[-1])
+        
+        if b == "0":
+            return 1
+        
+        cycle = {
+            0: [0],
+            1: [1],
+            2: [2, 4, 8, 6],
+            3: [3, 9, 7, 1],
+            4: [4, 6],
+            5: [5],
+            6: [6],
+            7: [7, 9, 3, 1],
+            8: [8, 4, 2, 6],
+            9: [9, 1]
+        }
+        
+        last_digit_cycle = cycle[last_digit_a]
+        cycle_length = len(last_digit_cycle)
+        
+        effective_exponent = 0
+        for digit in b:
+            effective_exponent = (effective_exponent * 10 + int(digit)) % cycle_length
+        
+        if effective_exponent == 0:
+            effective_exponent = cycle_length
+        
+        last_digit_of_power = last_digit_cycle[effective_exponent - 1]
+        
+        return last_digit_of_power
