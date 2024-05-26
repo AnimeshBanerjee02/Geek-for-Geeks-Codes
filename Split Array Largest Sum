@@ -1,0 +1,27 @@
+#User function Template for python3
+
+class Solution:
+    def splitArray(self, arr, N, K):
+        def can_split(max_sum):
+            current_sum = 0
+            subarrays_needed = 1 
+            for num in arr:
+                if current_sum + num > max_sum:
+                    subarrays_needed += 1
+                    current_sum = num
+                    if subarrays_needed > K:
+                        return False
+                else:
+                    current_sum += num
+            return True
+        
+        low, high = max(arr), sum(arr)
+        
+        while low < high:
+            mid = (low + high) // 2
+            if can_split(mid):
+                high = mid
+            else:
+                low = mid + 1
+        
+        return low
