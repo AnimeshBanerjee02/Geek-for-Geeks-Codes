@@ -1,0 +1,18 @@
+#User function Template for python3
+
+class Solution:
+    def countBits(self, N, A):
+        MOD = 10**9 + 7
+        max_bit_position = 31  
+        
+        result = 0
+        
+        for bit_pos in range(max_bit_position + 1):
+            bit_count = 0
+            for num in A:
+                if num & (1 << bit_pos):
+                    bit_count += 1
+            
+            result += (bit_count * (N - bit_count) * 2) % MOD
+        
+        return result % MOD
