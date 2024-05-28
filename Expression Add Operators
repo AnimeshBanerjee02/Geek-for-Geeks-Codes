@@ -1,0 +1,30 @@
+#User function Template for python3
+
+class Solution:
+    def addOperators(self, S, target):
+        def backtrack(index, prev_operand, current_operand, value, expression):
+            if index == len(S):
+                if value == target:
+                    results.append("".join(expression))
+                return
+            
+            for i in range(index, len(S)):
+                if i != index and S[index] == '0':
+                    break
+                
+                current_str = S[index:i + 1]
+                current_number = int(current_str)
+                
+                if index == 0:
+                    backtrack(i + 1, current_number, current_number, current_number, [current_str])
+                else:
+                    backtrack(i + 1, current_number, 0, value + current_number, expression + ['+', current_str])
+                    
+                    backtrack(i + 1, -current_number, 0, value - current_number, expression + ['-', current_str])
+                    
+                    backtrack(i + 1, prev_operand * current_number, 0, value - prev_operand + (prev_operand * current_number), expression + ['*', current_str])
+        
+        results = []
+        if S:
+            backtrack(0, 0, 0, 0, [])
+        return results
