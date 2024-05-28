@@ -1,0 +1,29 @@
+#User function Template for python3
+
+class Solution:
+    def rearrangeArray(self, n, arr):
+        MOD = 10**9 + 7
+        
+        def gcd(a, b):
+            while b:
+                a, b = b, a % b
+            return a
+        
+        def lcm(a, b):
+            return (a * b) // gcd(a, b)  
+        
+        visited = [False] * n
+        result_lcm = 1
+        
+        for i in range(n):
+            if not visited[i]:
+                cycle_length = 0
+                j = i
+                while not visited[j]:
+                    visited[j] = True
+                    j = arr[j] - 1  
+                    cycle_length += 1
+                
+                result_lcm = (result_lcm * cycle_length) // gcd(result_lcm, cycle_length)
+        
+        return result_lcm % MOD 
