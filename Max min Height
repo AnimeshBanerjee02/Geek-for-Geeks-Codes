@@ -1,0 +1,30 @@
+class Solution:
+    def maximizeMinHeight(self, n, k, w, a):
+        def canAchieveHeight(target):
+            add = [0] * (n + 1)
+            current_watering = 0
+            total_operations = 0
+
+            for i in range(n):
+                current_watering += add[i]
+                
+                if a[i] + current_watering < target:
+                    needed = target - (a[i] + current_watering)
+                    total_operations += needed
+                    if total_operations > k:
+                        return False
+                    current_watering += needed
+                    if i + w < n:
+                        add[i + w] -= needed
+            
+            return True
+        
+        low, high = min(a), max(a) + k
+        while low <= high:
+            mid = (low + high) // 2
+            if canAchieveHeight(mid):
+                low = mid + 1
+            else:
+                high = mid - 1
+        
+        return high
