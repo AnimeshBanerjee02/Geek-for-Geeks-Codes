@@ -1,0 +1,31 @@
+#User function Template for python3
+
+from heapq import heappush, heappop
+from sys import maxsize
+
+class Solution:
+    def smallestRange(self, KSortedArray, n, k):
+        min_heap = []
+        current_max = -maxsize
+
+        for i in range(k):
+            element = KSortedArray[i][0]
+            heappush(min_heap, (element, i, 0))
+            current_max = max(current_max, element)
+        
+        range_start, range_end = -maxsize, maxsize
+        
+        while True:
+            current_min, list_idx, elem_idx = heappop(min_heap)
+            
+            if current_max - current_min < range_end - range_start:
+                range_start, range_end = current_min, current_max
+            
+            if elem_idx + 1 == n:
+                break
+            
+            next_element = KSortedArray[list_idx][elem_idx + 1]
+            heappush(min_heap, (next_element, list_idx, elem_idx + 1))
+            current_max = max(current_max, next_element)
+        
+        return [range_start, range_end]
