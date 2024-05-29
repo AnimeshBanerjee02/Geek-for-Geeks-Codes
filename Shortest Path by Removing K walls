@@ -1,0 +1,24 @@
+#User function Template for python3
+
+from collections import deque
+
+class Solution:
+    def shotestPath(self, mat, n, m, k):
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        queue = deque([(0, 0, 0, 0)])  # (steps, x, y, walls_removed)
+        visited = [[float('inf')] * m for _ in range(n)]
+        visited[0][0] = 0
+
+        while queue:
+            steps, x, y, walls_removed = queue.popleft()
+            if x == n - 1 and y == m - 1:
+                return steps
+            for dx, dy in directions:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < n and 0 <= ny < m:
+                    new_walls_removed = walls_removed + (1 if mat[nx][ny] == 1 else 0)
+                    if new_walls_removed <= k and new_walls_removed < visited[nx][ny]:
+                        visited[nx][ny] = new_walls_removed
+                        queue.append((steps + 1, nx, ny, new_walls_removed))
+
+        return -1
