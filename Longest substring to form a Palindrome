@@ -1,0 +1,24 @@
+#User function Template for python3
+
+class Solution:
+    def longestSubstring(self, S: str) -> int:
+        n = len(S)
+        max_length = 0
+        bitmask = 0
+        first_occurrence = {0: -1}
+        
+        for i in range(n):
+            char_index = ord(S[i]) - ord('a')
+            bitmask ^= (1 << char_index)
+            
+            if bitmask in first_occurrence:
+                max_length = max(max_length, i - first_occurrence[bitmask])
+            else:
+                first_occurrence[bitmask] = i
+            
+            for j in range(26):
+                toggled_bitmask = bitmask ^ (1 << j)
+                if toggled_bitmask in first_occurrence:
+                    max_length = max(max_length, i - first_occurrence[toggled_bitmask])
+        
+        return max_length
