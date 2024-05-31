@@ -1,0 +1,7 @@
+#User function Template for python3
+class Solution:
+    def swapNibbles(self, n):
+        higher_nibble = (n & 0xF0) >> 4
+        lower_nibble = (n & 0x0F) << 4
+        result = lower_nibble | higher_nibble
+        return result
