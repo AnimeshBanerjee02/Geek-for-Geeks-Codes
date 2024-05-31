@@ -1,0 +1,20 @@
+#User function Template for python3
+class Solution:
+    def countSubarray(self, N, A, L, R):
+        def countSubarraysWithSumAtMost(K):
+            start = 0
+            current_sum = 0
+            count = 0
+            
+            for end in range(N):
+                current_sum += A[end]
+                
+                while current_sum > K and start <= end:
+                    current_sum -= A[start]
+                    start += 1
+                
+                count += (end - start + 1)
+            
+            return count
+        
+        return countSubarraysWithSumAtMost(R) - countSubarraysWithSumAtMost(L-1)
