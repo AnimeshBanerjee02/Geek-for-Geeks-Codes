@@ -1,0 +1,35 @@
+#User function Template for python3
+
+class Solution:
+    def multiplyStrings(self, s1, s2):
+        negative = (s1[0] == '-') ^ (s2[0] == '-')
+        
+        if s1[0] == '-':
+            s1 = s1[1:]
+        if s2[0] == '-':
+            s2 = s2[1:]
+        
+        s1 = s1.lstrip('0')
+        s2 = s2.lstrip('0')
+        if not s1 or not s2:
+            return "0"
+        
+        n1, n2 = len(s1), len(s2)
+        result = [0] * (n1 + n2)
+        
+        for i in range(n1-1, -1, -1):
+            for j in range(n2-1, -1, -1):
+                mul = (ord(s1[i]) - ord('0')) * (ord(s2[j]) - ord('0'))
+                pos_low = i + j + 1
+                pos_high = i + j
+                sum = mul + result[pos_low]
+                
+                result[pos_low] = sum % 10
+                result[pos_high] += sum // 10
+        
+        result_str = ''.join(map(str, result)).lstrip('0')
+        
+        if negative and result_str:
+            result_str = '-' + result_str
+        
+        return result_str if result_str else "0"
