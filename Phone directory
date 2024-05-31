@@ -1,0 +1,22 @@
+#User function Template for python3
+
+class Solution:
+    def displayContacts(self, n, contact, s):
+        contact = sorted(set(contact))
+        
+        results = []
+        
+        for i in range(1, len(s) + 1):
+            prefix = s[:i]
+            matched_contacts = []
+            
+            for c in contact:
+                if c.startswith(prefix):
+                    matched_contacts.append(c)
+            
+            if matched_contacts:
+                results.append(matched_contacts)
+            else:
+                results.append(["0"])
+        
+        return results
