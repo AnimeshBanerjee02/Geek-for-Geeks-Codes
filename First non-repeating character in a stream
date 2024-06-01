@@ -1,0 +1,23 @@
+#User function Template for python3
+
+from collections import deque, defaultdict
+
+class Solution:
+    def FirstNonRepeating(self, A):
+        q = deque()
+        freq = defaultdict(int)
+        result = []
+
+        for char in A:
+            freq[char] += 1
+            q.append(char)
+            
+            while q and freq[q[0]] > 1:
+                q.popleft()
+            
+            if q:
+                result.append(q[0])
+            else:
+                result.append('#')
+        
+        return ''.join(result)
