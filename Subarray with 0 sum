@@ -1,0 +1,16 @@
+#User function Template for python3
+
+class Solution:
+    def subArrayExists(self, arr, n):
+        prefix_sums = set()
+        current_sum = 0
+        
+        for num in arr:
+            current_sum += num
+            
+            if current_sum == 0 or current_sum in prefix_sums:
+                return True
+            
+            prefix_sums.add(current_sum)
+        
+        return False
