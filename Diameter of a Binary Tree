@@ -1,0 +1,40 @@
+#User function Template for python3
+
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def diameter(self, root):
+        if not root:
+            return 0
+        
+        self.max_diameter = 0
+        
+        def height(node):
+            stack = [(node, 0)]
+            node_heights = {}
+            
+            while stack:
+                current, state = stack.pop()
+                
+                if current is None:
+                    continue
+                
+                if state == 0:
+                    stack.append((current, 1))
+                    stack.append((current.left, 0))
+                    stack.append((current.right, 0))
+                else:
+                    left_height = node_heights.get(current.left, 0)
+                    right_height = node_heights.get(current.right, 0)
+                    
+                    node_heights[current] = max(left_height, right_height) + 1
+                    self.max_diameter = max(self.max_diameter, left_height + right_height + 1)
+        
+        height(root)
+        return self.max_diameter
