@@ -1,0 +1,21 @@
+
+from typing import List
+
+class Solution:
+    def constructList(self, q: int, queries: List[List[int]]) -> List[int]:
+        s = [0]
+        cumulative_xor = 0
+        
+        for query in queries:
+            if query[0] == 0:
+                
+                x = query[1]
+                s.append(x ^ cumulative_xor)
+            elif query[0] == 1:
+                x = query[1]
+                cumulative_xor ^= x
+        
+        s = [a ^ cumulative_xor for a in s]
+        
+        s.sort()
+        return s
