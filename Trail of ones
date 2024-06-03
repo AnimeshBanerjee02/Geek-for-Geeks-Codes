@@ -1,0 +1,25 @@
+#User function Template for python3
+class Solution:
+    def numberOfConsecutiveOnes(self, n):
+        MOD = int(1e9 + 7)
+        
+        if n == 2:
+            return 1
+        
+        dp0, dp1 = [0] * (n+1), [0] * (n+1)
+        dp = [0] * (n+1)
+        
+        dp0[1] = 1
+        dp1[1] = 1
+        dp[1] = 2
+        
+        for i in range(2, n+1):
+            dp0[i] = (dp0[i-1] + dp1[i-1]) % MOD
+            dp1[i] = dp0[i-1] % MOD
+            dp[i] = (dp0[i] + dp1[i]) % MOD
+        
+        total_strings = pow(2, n, MOD)
+        
+        result = (total_strings - dp[n]) % MOD
+        
+        return result
