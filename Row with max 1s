@@ -1,0 +1,17 @@
+#User function Template for python3
+class Solution:
+    def rowWithMax1s(self, arr, n, m):
+        row_index = 0
+        col_index = m - 1
+        
+        max_row_index = -1
+        max_count = 0
+        
+        while row_index < n and col_index >= 0:
+            if arr[row_index][col_index] == 1:
+                max_row_index = row_index
+                col_index -= 1  
+            else:
+                row_index += 1  
+        
+        return max_row_index
