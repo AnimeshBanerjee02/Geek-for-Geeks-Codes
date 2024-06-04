@@ -1,0 +1,32 @@
+#User function Template for python3
+
+
+
+class Solution:
+
+    def myfun(self,m):
+        s=''
+        for i in range(len(m)):
+            s+=str(m[i])
+        if s==s[::-1] :  
+            return True
+        else:
+            return False    
+
+    def pattern (self, a, N):
+        N=len(a)
+        M=len(a[0])
+        # code here
+        for i in range(N):
+            if(self.myfun(a[i])):
+                return str(i)+' '+'R'
+        for i in range(N):
+            for j in range(i+1,M):
+                a[i][j], a[j][i] = a[j][i], a[i][j]
+        N=len(a)
+        M=len(a[0])
+
+        for i in range(N):
+            if(self.myfun(a[i])):
+                return str(i)+' '+'C'     
+        return -1   
