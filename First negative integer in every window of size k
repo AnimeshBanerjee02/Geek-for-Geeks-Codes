@@ -1,0 +1,18 @@
+#User function Template for python3
+
+def printFirstNegativeInteger( A, N, K):
+    # code here
+    import heapq
+    h = []
+    first = 0
+    for i in range(K):
+        heapq.heappush(h, (i, A[i]))
+        if A[i] < 0 and first == 0:
+            first = A[i]
+    ans = [first]
+    for i in range(K, N):
+        heapq.heappush(h, (i, A[i]))
+        while h and (h[0][1] > 0 or abs(h[0][0]-i) > K-1):
+            heapq.heappop(h)
+        ans.append(0 if not h else h[0][1])
+    return ans
