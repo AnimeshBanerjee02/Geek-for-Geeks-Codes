@@ -1,0 +1,20 @@
+#User function Template for python3
+
+from bisect import bisect_left
+
+class Solution:
+    
+    def longestSubsequence(self, n, a):
+        if n == 0:
+            return 0
+        
+        dp = []
+        
+        for num in a:
+            pos = bisect_left(dp, num)
+            if pos == len(dp):
+                dp.append(num)
+            else:
+                dp[pos] = num
+        
+        return len(dp)
