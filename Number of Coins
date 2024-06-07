@@ -1,0 +1,11 @@
+#User function Template for python3
+class Solution:
+    def minCoins(self, coins, M, V):
+        dp = [float('inf')] * (V + 1)
+        dp[0] = 0  
+        
+        for coin in coins:
+            for i in range(coin, V + 1):
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+        
+        return dp[V] if dp[V] != float('inf') else -1
