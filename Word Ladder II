@@ -1,0 +1,35 @@
+#User function Template for python3
+
+from collections import deque, defaultdict
+
+class Solution:
+    def findSequences(self, startWord, targetWord, wordList):
+        wordList = set(wordList)
+        if targetWord not in wordList:
+            return []
+        
+        queue = deque([[startWord]])
+        visited = set([startWord])
+        found = False
+        res = []
+        word_len = len(startWord)
+        
+        while queue and not found:
+            local_visited = set()
+            for _ in range(len(queue)):
+                path = queue.popleft()
+                current_word = path[-1]
+                for i in range(word_len):
+                    for ch in 'abcdefghijklmnopqrstuvwxyz':
+                        next_word = current_word[:i] + ch + current_word[i+1:]
+                        if next_word in wordList and next_word not in visited:
+                            new_path = path + [next_word]
+                            if next_word == targetWord:
+                                found = True
+                                res.append(new_path)
+                            else:
+                                local_visited.add(next_word)
+                                queue.append(new_path)
+            visited.update(local_visited)
+        
+        return res
