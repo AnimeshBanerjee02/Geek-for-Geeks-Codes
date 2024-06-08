@@ -1,0 +1,43 @@
+//User function Template for C++
+
+/*Link list node 
+struct Node {
+	int data;
+	struct Node *next;
+	Node(int x) {
+		data = x;
+		next = NULL;
+	}
+};*/
+
+class Solution
+{
+    public:
+    Node* reverseBetween(Node* head, int m, int n)
+    {
+        if (m == n) return head;
+        
+        Node dummy(0);
+        dummy.next = head;
+        
+        Node* pre = &dummy;
+        Node* current;
+        Node* next;
+        
+        for (int i = 1; i < m; ++i) {
+            pre = pre->next;
+        }
+        
+        current = pre->next;
+        next = current->next;
+        
+        for (int i = 0; i < n - m; ++i) {
+            current->next = next->next;
+            next->next = pre->next;
+            pre->next = next;
+            next = current->next;
+        }
+        
+        return dummy.next;
+    }
+};
