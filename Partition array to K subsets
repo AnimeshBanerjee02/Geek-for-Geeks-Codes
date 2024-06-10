@@ -1,0 +1,31 @@
+#User function Template for python3
+class Solution:
+    def isKPartitionPossible(self, a, k):
+        total_sum = sum(a)
+        
+        if total_sum % k != 0:
+            return False
+        
+        target = total_sum // k
+        n = len(a)
+        
+        a.sort(reverse=True)
+        
+        used = [False] * n
+        
+        def backtrack(start, k, current_sum):
+            if k == 1:
+                return True
+            if current_sum == target:
+                return backtrack(0, k - 1, 0)
+            
+            for i in range(start, n):
+                if not used[i] and current_sum + a[i] <= target:
+                    used[i] = True
+                    if backtrack(i + 1, k, current_sum + a[i]):
+                        return True
+                    used[i] = False
+            
+            return False
+        
+        return backtrack(0, k, 0)
