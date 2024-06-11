@@ -1,0 +1,24 @@
+#User function Template for python3
+class Solution:
+    def findSum(self, X: str, Y: str) -> str:
+        i, j = len(X) - 1, len(Y) - 1
+        
+        carry = 0
+        result = []
+        
+        while i >= 0 or j >= 0 or carry:
+            digitX = int(X[i]) if i >= 0 else 0
+            digitY = int(Y[j]) if j >= 0 else 0
+            total = digitX + digitY + carry
+            carry = total // 10  
+            result.append(total % 10)  
+            
+            i -= 1
+            j -= 1
+        
+        result.reverse()
+        
+        sum_str = ''.join(map(str, result))
+        sum_str = sum_str.lstrip('0')
+        
+        return sum_str if sum_str else '0'
