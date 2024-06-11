@@ -1,0 +1,21 @@
+from typing import List
+
+class Solution:
+    def maxTip(self, n: int, x: int, y: int, arr: List[int], brr: List[int]) -> int:
+        orders = [(arr[i], brr[i], abs(arr[i] - brr[i]), i) for i in range(n)]
+        
+        orders.sort(key=lambda x: x[2], reverse=True)
+        
+        total_tips = 0
+        count_a = 0
+        count_b = 0
+        
+        for a_tip, b_tip, diff, i in orders:
+            if (a_tip >= b_tip and count_a < x) or count_b == y:
+                total_tips += a_tip
+                count_a += 1
+            else:
+                total_tips += b_tip
+                count_b += 1
+                
+        return total_tips
