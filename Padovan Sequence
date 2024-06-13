@@ -1,0 +1,18 @@
+#User function Template for python3
+
+class Solution:
+    def padovanSequence(self, n):
+        MOD = 10**9 + 7
+        
+        if n == 0 or n == 1 or n == 2:
+            return 1
+        
+        P0, P1, P2 = 1, 1, 1
+        
+        current_value = 0
+        
+        for i in range(3, n + 1):
+            current_value = (P1 + P0) % MOD
+            P0, P1, P2 = P1, P2, current_value
+        
+        return current_value 
