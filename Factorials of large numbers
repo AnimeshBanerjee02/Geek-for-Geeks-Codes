@@ -1,0 +1,12 @@
+#User function Template for python3
+class Solution:
+    def factorial(self, N):
+        factorial_result = 1
+        for i in range(1, N + 1):
+            factorial_result *= i
+        
+        factorial_str = str(factorial_result)
+        
+        digits_list = [int(char) for char in factorial_str]
+        
+        return digits_list
