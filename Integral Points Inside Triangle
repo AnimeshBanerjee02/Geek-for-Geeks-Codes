@@ -1,0 +1,39 @@
+#User function Template for python3
+
+import math
+
+class Solution:
+    def gcd(self, a, b):
+        while b:
+            a, b = b, a % b
+        return a
+
+    def triangle_area(self, p, q, r):
+        p1, p2 = p
+        q1, q2 = q
+        r1, r2 = r
+        return abs(p1 * (q2 - r2) + q1 * (r2 - p2) + r1 * (p2 - q2))
+
+    def boundary_points(self, p, q, r):
+        p1, p2 = p
+        q1, q2 = q
+        r1, r2 = r
+        return (
+            self.gcd(abs(q1 - p1), abs(q2 - p2)) +
+            self.gcd(abs(r1 - q1), abs(r2 - q2)) +
+            self.gcd(abs(p1 - r1), abs(p2 - r2))
+        )
+    
+    def InternalCount(self, p, q, r):
+        # Calculate the doubled area to keep everything in integer arithmetic
+        A = self.triangle_area(p, q, r)
+        
+        # Calculate the number of boundary points
+        B = self.boundary_points(p, q, r)
+        
+        # Apply Pick's theorem: A = 2I + B - 2
+        # => 2I = A - B + 2
+        # => I = (A - B + 2) / 2
+        I = (A - B + 2) // 2
+        
+        return I
