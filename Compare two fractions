@@ -1,0 +1,18 @@
+#User function Template for python3
+
+class Solution:
+    def compareFrac(self, str):
+        frac1, frac2 = str.split(', ')
+        
+        a, b = map(int, frac1.split('/'))
+        c, d = map(int, frac2.split('/'))
+        
+        left_side = a * d
+        right_side = c * b
+        
+        if left_side > right_side:
+            return frac1
+        elif left_side < right_side:
+            return frac2
+        else:
+            return "equal"
