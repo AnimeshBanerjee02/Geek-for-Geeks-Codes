@@ -1,0 +1,12 @@
+import re
+
+class Solution:
+    def ExtractNumber(self, sentence):
+        numbers = re.findall(r'\d+', sentence)
+        
+        valid_numbers = [int(num) for num in numbers if '9' not in num]
+        
+        if not valid_numbers:
+            return -1
+        
+        return max(valid_numbers)
