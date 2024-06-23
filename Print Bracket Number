@@ -1,0 +1,17 @@
+#User function Template for python3
+class Solution:
+    def bracketNumbers(self, str):
+        counter = 0
+        stack = []
+        result = []
+        
+        for char in str:
+            if char == '(':
+                counter += 1
+                stack.append(counter)
+                result.append(counter)
+            elif char == ')':
+                if stack:
+                    result.append(stack.pop())
+        
+        return result
