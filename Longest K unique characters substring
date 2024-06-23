@@ -1,0 +1,26 @@
+#User function Template for python3
+class Solution:
+    def longestKSubstr(self, s, k):
+        if k == 0:
+            return -1
+        
+        char_count = {}
+        left = 0
+        max_length = -1
+        
+        for right in range(len(s)):
+            if s[right] in char_count:
+                char_count[s[right]] += 1
+            else:
+                char_count[s[right]] = 1
+            
+            while len(char_count) > k:
+                char_count[s[left]] -= 1
+                if char_count[s[left]] == 0:
+                    del char_count[s[left]]
+                left += 1
+            
+            if len(char_count) == k:
+                max_length = max(max_length, right - left + 1)
+        
+        return max_length
