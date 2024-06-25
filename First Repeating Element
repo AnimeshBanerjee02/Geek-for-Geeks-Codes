@@ -1,0 +1,22 @@
+#User function Template for python3
+
+class Solution:
+    def firstRepeated(self, arr, n):
+        element_count = {}
+        element_index = {}
+        
+        for i in range(n):
+            if arr[i] in element_count:
+                element_count[arr[i]] += 1
+            else:
+                element_count[arr[i]] = 1
+                element_index[arr[i]] = i
+        
+        min_index = float('inf')
+        
+        for key in element_count:
+            if element_count[key] > 1:
+                if element_index[key] < min_index:
+                    min_index = element_index[key]
+        
+        return min_index + 1 if min_index != float('inf') else -1
