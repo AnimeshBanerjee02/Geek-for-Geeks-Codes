@@ -1,0 +1,18 @@
+#User function Template for python3
+
+class Solution:
+    def findCoverage(self, matrix):
+        rows = len(matrix)
+        cols = len(matrix[0])
+        coverage = 0
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+        for r in range(rows):
+            for c in range(cols):
+                if matrix[r][c] == 0:
+                    for dr, dc in directions:
+                        nr, nc = r + dr, c + dc
+                        if 0 <= nr < rows and 0 <= nc < cols and matrix[nr][nc] == 1:
+                            coverage += 1
+
+        return coverage
