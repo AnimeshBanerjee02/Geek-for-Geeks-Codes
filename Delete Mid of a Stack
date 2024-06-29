@@ -1,0 +1,19 @@
+#User function Template for python3
+
+class Solution:
+    
+    def deleteMidUtil(self, s, current, middle):
+        if current == middle:
+            s.pop()
+            return
+        
+        top = s.pop()
+        
+        self.deleteMidUtil(s, current + 1, middle)
+        
+        s.append(top)
+    
+    def deleteMid(self, s, sizeOfStack):
+        middle = sizeOfStack // 2
+        
+        self.deleteMidUtil(s, 0, middle)
