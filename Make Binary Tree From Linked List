@@ -1,0 +1,60 @@
+# User function Template for python3
+
+'''
+class ListNode:
+
+    # Constructor to create a new node
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+# Tree Node structure
+class Tree:
+
+    # Constructor to create a new node
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+'''
+
+#Function to make binary tree from linked list.
+def convert(head):
+    if not head:
+        return None
+    
+    nodes = []
+    current = head
+    while current:
+        nodes.append(current.data)
+        current = current.next
+
+    n = len(nodes)
+    tree_nodes = [Tree(data) for data in nodes]
+    
+    for i in range(n):
+        if 2 * i + 1 < n:
+            tree_nodes[i].left = tree_nodes[2 * i + 1]
+        if 2 * i + 2 < n:
+            tree_nodes[i].right = tree_nodes[2 * i + 2]
+    
+    return tree_nodes[0]
+
+def level_order_traversal(root):
+    if not root:
+        return
+    
+    queue = []
+    queue.append(root)
+    
+    while queue:
+        current = queue.pop(0)
+        print(current.data, end=" ")
+        
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
+    print()
