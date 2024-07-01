@@ -1,0 +1,35 @@
+# your task is to complete this function
+# function should return new head pointer
+
+'''
+class node:
+    def __init__(self):
+        self.data = None
+        self.next = None
+'''
+
+def delNode(head, x):
+    if not head:
+        return None
+
+    if x == 1:
+        return head.next
+
+    current = head
+    count = 1
+
+    while current and count < x - 1:
+        current = current.next
+        count += 1
+
+    if not current or not current.next:
+        return head
+    current.next = current.next.next
+
+    return head
+
+def printList(head):
+    current = head
+    while current:
+        print(current.data, end=" -> " if current.next else "\n")
+        current = current.next
