@@ -1,0 +1,17 @@
+#User function Template for python3
+
+'''
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+'''
+def compute(head):
+    combined_string = ""
+    current_node = head
+    
+    while current_node is not None:
+        combined_string += current_node.data
+        current_node = current_node.next
+    
+    return combined_string == combined_string[::-1]
