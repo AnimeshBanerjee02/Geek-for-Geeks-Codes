@@ -1,0 +1,49 @@
+#User function Template for python3
+
+"""
+# Linked list Node class
+
+    class Node :
+        def __init__(self, val):
+            self.data = val
+            self.next = None
+
+"""
+
+class Solution:
+    def removeAllDuplicates(self, head):
+        if not head or not head.next:
+            return head
+
+        dummy = Node(0)  
+        dummy.next = head
+        prev = dummy 
+        current = head
+
+        while current:
+            if current.next and current.data == current.next.data:
+                while current.next and current.data == current.next.data:
+                    current = current.next
+                prev.next = current.next
+            else:
+                prev = prev.next
+
+            current = current.next
+
+        return dummy.next
+
+def print_list(node):
+    while node:
+        print(node.data, end=' ')
+        node = node.next
+    print()
+
+def create_list(arr):
+    if not arr:
+        return None
+    head = Node(arr[0])
+    current = head
+    for value in arr[1:]:
+        current.next = Node(value)
+        current = current.next
+    return head
