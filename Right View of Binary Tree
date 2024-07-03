@@ -1,0 +1,57 @@
+#User function Template for python3
+
+
+
+'''
+# Node Class:
+class Node:
+    def init(self,val):
+        self.data = val
+        self.left = None
+        self.right = None
+'''
+class Solution:
+    def rightView(self, root):
+        if not root:
+            return []
+        
+        queue = [root]
+        right_view = []
+
+        while queue:
+            level_size = len(queue)
+            for i in range(level_size):
+                node = queue.pop(0)
+                
+                if i == level_size - 1:
+                    right_view.append(node.data)
+                
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+        
+        return right_view
+
+def build_tree(arr):
+    if not arr:
+        return None
+    
+    root = Node(arr[0])
+    queue = [root]
+    i = 1
+    
+    while queue and i < len(arr):
+        node = queue.pop(0)
+        
+        if arr[i] is not None:
+            node.left = Node(arr[i])
+            queue.append(node.left)
+        i += 1
+        
+        if i < len(arr) and arr[i] is not None:
+            node.right = Node(arr[i])
+            queue.append(node.right)
+        i += 1
+    
+    return root
