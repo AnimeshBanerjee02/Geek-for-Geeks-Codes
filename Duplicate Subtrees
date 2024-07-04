@@ -1,0 +1,22 @@
+from collections import defaultdict
+
+
+class Solution:
+    def serialize(self, node, node_map, duplicates):
+        if not node:
+            return "#"
+
+        serial = "{},{},{}".format(node.data, self.serialize(
+            node.left, node_map, duplicates), self.serialize(node.right, node_map, duplicates))
+
+        node_map[serial].append(node)
+        if len(node_map[serial]) == 2:
+            duplicates.append(node)
+
+        return serial
+
+    def printAllDups(self, root):
+        node_map = defaultdict(list)
+        duplicates = []
+        self.serialize(root, node_map, duplicates)
+        return duplicates
