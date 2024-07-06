@@ -1,0 +1,36 @@
+#User function Template for python3
+
+
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+        self.next = None
+
+class Solution:
+    def populateNext(self, root):
+        prev = None
+        
+        curr = root
+        
+        while curr:
+            if curr.left is None:
+                if prev:
+                    prev.next = curr
+                prev = curr
+                curr = curr.right
+            else:
+                pre = curr.left
+                while pre.right and pre.right != curr:
+                    pre = pre.right
+                
+                if pre.right is None:
+                    pre.right = curr
+                    curr = curr.left
+                else:
+                    pre.right = None
+                    if prev:
+                        prev.next = curr
+                    prev = curr
+                    curr = curr.right
