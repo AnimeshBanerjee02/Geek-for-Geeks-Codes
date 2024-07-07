@@ -1,0 +1,39 @@
+#User function Template for python3
+'''
+# Node Class:
+class Node:
+    def __init__(self,val):
+        self.data = val
+        self.left = None
+        self.right = None
+'''
+
+
+
+class Solution:
+    
+    def solve(self, root, target, parent):
+        if root is None or root.data == target:
+            return
+        if root.left is not None:
+            parent[root.left.data] = root.data
+            self.solve(root.left, target, parent)
+        if root.right is not None:
+            parent[root.right.data] = root.data
+            self.solve(root.right, target, parent)
+
+    def Ancestors(self, root, target):
+        ans = []
+        parent = [-1] * 10001  
+        parent[root.data] = root.data
+        if target == root.data:
+            return ans
+        
+        self.solve(root, target, parent)
+        
+        temp = target
+        while temp != parent[temp]:
+            ans.append(parent[temp])
+            temp = parent[temp]
+
+        return ans
