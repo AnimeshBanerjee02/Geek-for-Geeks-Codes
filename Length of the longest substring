@@ -1,0 +1,16 @@
+#User function Template for python3
+
+class Solution:
+    def longestUniqueSubsttr(self, S):
+        start = 0
+        max_length = 0
+        char_set = set()
+
+        for end in range(len(S)):
+            while S[end] in char_set:
+                char_set.remove(S[start])
+                start += 1
+            char_set.add(S[end])
+            max_length = max(max_length, end - start + 1)
+
+        return max_length
