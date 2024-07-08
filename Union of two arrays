@@ -1,0 +1,7 @@
+#User function Template for python3
+
+class Solution:    
+    # Function to return the count of number of elements in the union of two arrays.
+    def doUnion(self, arr1, arr2):
+        union_set = set(arr1).union(set(arr2))
+        return len(union_set)
