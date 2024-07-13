@@ -1,0 +1,42 @@
+#User function Template for python3
+from typing import List, Tuple
+import heapq
+
+class Solution:
+    def shortestPath(self, n: int, m: int, edges: List[List[int]]) -> List[int]:
+        graph = [[] for _ in range(n + 1)]
+        for a, b, w in edges:
+            graph[a].append((b, w))
+            graph[b].append((a, w))
+
+        dist = [float('inf')] * (n + 1)
+        parent = [-1] * (n + 1)
+        dist[1] = 0
+        
+        pq = [(0, 1)]  
+        
+        while pq:
+            current_dist, u = heapq.heappop(pq)
+            
+            if current_dist > dist[u]:
+                continue
+            
+            for v, weight in graph[u]:
+                distance = current_dist + weight
+                if distance < dist[v]:
+                    dist[v] = distance
+                    parent[v] = u
+                    heapq.heappush(pq, (distance, v))
+        
+        if dist[n] == float('inf'):
+            return [-1]
+
+        path = []
+        current = n
+        while current != -1:
+            path.append(current)
+            current = parent[current]
+        
+        path.reverse()
+        
+        return [dist[n]] + path
