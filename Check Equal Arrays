@@ -1,0 +1,23 @@
+# User function Template for python3
+
+class Solution:
+    def check(self, arr1, arr2) -> bool:
+        if len(arr1) != len(arr2):
+            return False
+        
+        count1 = {}
+        count2 = {}
+        
+        for num in arr1:
+            if num in count1:
+                count1[num] += 1
+            else:
+                count1[num] = 1
+        
+        for num in arr2:
+            if num in count2:
+                count2[num] += 1
+            else:
+                count2[num] = 1
+        
+        return count1 == count2
