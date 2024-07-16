@@ -1,0 +1,13 @@
+#User function Template for python3
+
+from collections import Counter
+
+def isSubset(a1, a2, n, m):
+    counter_a1 = Counter(a1)
+    counter_a2 = Counter(a2)
+    
+    for elem in counter_a2:
+        if counter_a2[elem] > counter_a1.get(elem, 0):
+            return "No"
+    
+    return "Yes"
