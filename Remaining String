@@ -1,0 +1,13 @@
+#User function Template for python3
+class Solution:
+    def printString(self, s, ch, count):
+        occurrence = 0
+        length = len(s)
+        
+        for i in range(length):
+            if s[i] == ch:
+                occurrence += 1
+            if occurrence == count:
+                return s[i+1:]
+        
+        return ""
