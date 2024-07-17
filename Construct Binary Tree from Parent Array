@@ -1,0 +1,50 @@
+#User function Template for python3
+
+
+'''
+# A node structure
+class Node:
+    # A utility function to create a new node
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+'''
+class Solution:
+    # Function to construct binary tree from parent array.
+    def createTree(self, parent):
+        n = len(parent)
+        if n == 0:
+            return None
+        
+        nodes = {i: Node(i) for i in range(n)}
+        
+        root = None
+        
+        for i in range(n):
+            if parent[i] == -1:
+                root = nodes[i]
+            else:
+                p = nodes[parent[i]]
+                if p.left is None:
+                    p.left = nodes[i]
+                else:
+                    p.right = nodes[i]
+        
+        return root
+
+from collections import deque
+
+def printLevelOrder(root):
+    if not root:
+        return []
+    queue = deque([root])
+    result = []
+    while queue:
+        node = queue.popleft()
+        result.append(node.key)
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+    return result
