@@ -1,0 +1,13 @@
+
+from typing import List
+
+class Solution:
+    def largest(self, n: int, arr: List[int]) -> int:
+        max_element = arr[0]
+        
+        for num in arr:
+            if num > max_element:
+                max_element = num
+        
+        return max_element
+        
