@@ -1,0 +1,29 @@
+#User function Template for python3
+class Solution:
+    def findMaxProduct(self, arr):
+        n = len(arr)
+        max_element = float("-inf")
+        max_element = max(arr)
+        zero_count = 0
+        if n == 1:
+            return arr[0]
+        product = 1
+        max_negative = float("-inf")
+        mod = 10**9 + 7
+        
+        for num in arr:
+            if num == 0:
+                zero_count += 1
+            if num != 0:
+                product *= num
+            if num < 0 and num > max_negative:
+                max_negative = num
+        
+        if product < 0:
+            product //= max_negative
+        if zero_count == n:
+            return 0
+        if max_element == 0 and product == 1:
+            return max_element
+        
+        return product % mod
