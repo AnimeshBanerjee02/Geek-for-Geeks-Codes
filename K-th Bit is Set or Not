@@ -1,0 +1,8 @@
+#User function Template for python3
+
+
+class Solution:
+    # Function to check if Kth bit is set or not.
+    def checkKthBit(self, n, k):
+        bitmask = 1 << k
+        return (n & bitmask) != 0
