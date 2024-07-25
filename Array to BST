@@ -1,0 +1,17 @@
+#User function Template for python3
+class Solution:
+    def sortedArrayToBST(self, nums):
+        def fun(low,high):
+            nonlocal root
+            if low>high:
+                return None
+            mid=(low+high)//2
+            ptr=Node(nums[mid])
+            if root==None:
+                root=ptr
+            ptr.left=fun(low,mid-1)
+            ptr.right=fun(mid+1,high)
+            return ptr
+        root=None
+        fun(0,len(nums)-1)
+        return root
