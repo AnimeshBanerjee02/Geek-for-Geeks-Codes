@@ -1,0 +1,4 @@
+class Solution:
+    def seriesSum(self, n: int) -> int:
+        # Using the formula to calculate the sum of the first n natural numbers
+        return n * (n + 1) // 2
