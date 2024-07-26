@@ -1,0 +1,11 @@
+#User function Template for python3
+class Solution:
+    def get_min_max(self, arr):
+        max_elem = 0
+        min_elem = arr[0]
+        for elem in arr:
+            if elem < min_elem:
+                min_elem = elem
+            if elem > max_elem:
+                max_elem = elem
+        return min_elem,max_elem
