@@ -1,0 +1,19 @@
+#User function Template for python3
+class Solution:
+    def kPangram(self, string, k):
+        arr = [0] * 26
+        for char in string:
+            if char == ' ':
+                continue
+            arr[ord(char) - ord('a')] += 1
+
+        missing_chars = 0
+        space_for_alpha = 0
+
+        for i in range(26):
+            if arr[i] > 1:
+                space_for_alpha += (arr[i] - 1)
+            if arr[i] == 0:
+                missing_chars += 1
+
+        return missing_chars <= space_for_alpha and missing_chars <= k
