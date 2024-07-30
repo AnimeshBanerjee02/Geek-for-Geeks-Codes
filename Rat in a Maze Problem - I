@@ -1,0 +1,31 @@
+from typing import List
+
+class Solution:
+    def findPath(self, m: List[List[int]]) -> List[str]:
+        n = len(m)
+        if m[0][0] == 0 or m[n-1][n-1] == 0:
+            return []
+        
+        def is_safe(x, y):
+            return 0 <= x < n and 0 <= y < n and m[x][y] == 1
+        
+        def solve(x, y, path, visited):
+            if x == n-1 and y == n-1:
+                paths.append(path)
+                return
+            
+            directions = [('D', 1, 0), ('L', 0, -1), ('R', 0, 1), ('U', -1, 0)]
+            
+            for direction, dx, dy in directions:
+                new_x, new_y = x + dx, y + dy
+                if is_safe(new_x, new_y) and not visited[new_x][new_y]:
+                    visited[new_x][new_y] = True
+                    solve(new_x, new_y, path + direction, visited)
+                    visited[new_x][new_y] = False
+        
+        paths = []
+        visited = [[False for _ in range(n)] for _ in range(n)]
+        visited[0][0] = True
+        solve(0, 0, '', visited)
+        
+        return sorted(paths)
