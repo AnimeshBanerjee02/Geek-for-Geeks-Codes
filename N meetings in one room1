@@ -1,0 +1,19 @@
+#User function Template for python3
+
+class Solution:
+    
+    def maximumMeetings(self, n, start, end):
+        meetings = list(zip(start, end))
+        
+        meetings.sort(key=lambda x: (x[1], x[0]))
+        
+        last_meeting_end = -1
+        
+        max_meetings = 0
+        
+        for meeting in meetings:
+            if meeting[0] > last_meeting_end:
+                max_meetings += 1
+                last_meeting_end = meeting[1]
+                
+        return max_meetings
