@@ -1,0 +1,43 @@
+#User function Template for python3
+
+from collections import deque
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class Pair:
+    def __init__(self, node, level):
+        self.node = node
+        self.level = level
+
+class Solution:
+    def bottomView(self, root):
+        if not root:
+            return []
+
+        left_most = 0
+        mp = {}
+        q = deque()
+        q.append(Pair(root, 0))
+
+        while q:
+            p = q.popleft()
+            temp = p.node
+            lvl = p.level
+            mp[lvl] = temp.data
+            left_most = min(left_most, lvl)
+            
+            if temp.left:
+                q.append(Pair(temp.left, lvl - 1))
+            if temp.right:
+                q.append(Pair(temp.right, lvl + 1))
+
+        ans = []
+        while left_most in mp:
+            ans.append(mp[left_most])
+            left_most += 1
+
+        return ans
