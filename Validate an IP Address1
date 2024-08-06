@@ -1,0 +1,17 @@
+#User function Template for python3
+class Solution:
+    def isValid(self, str):
+        parts = str.split('.')
+        
+        if len(parts) != 4:
+            return False
+        
+        for part in parts:
+            if not part.isdigit() or (part[0] == '0' and len(part) > 1):
+                return False
+            
+            num = int(part)
+            if num < 0 or num > 255:
+                return False
+        
+        return True
