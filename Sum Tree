@@ -1,0 +1,31 @@
+#User function Template for python3
+
+'''
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+'''
+
+class Solution:
+    def is_sum_tree(self, node):
+        def sum_tree_and_check(node):
+            if node is None:
+                return True, 0
+            
+            if node.left is None and node.right is None:
+                return True, node.data
+            
+            left_is_sum_tree, left_sum = sum_tree_and_check(node.left)
+            right_is_sum_tree, right_sum = sum_tree_and_check(node.right)
+            
+            is_current_sum_tree = (left_is_sum_tree and right_is_sum_tree and 
+                                   node.data == left_sum + right_sum)
+            
+            total_sum = left_sum + right_sum + node.data
+            
+            return is_current_sum_tree, total_sum
+        
+        is_sum_tree, _ = sum_tree_and_check(node)
+        return is_sum_tree
