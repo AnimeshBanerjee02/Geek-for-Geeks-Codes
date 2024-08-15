@@ -1,0 +1,27 @@
+#User function Template for python3
+
+'''
+
+class Node:
+    def __init__(self, data):   # data -> value stored in node
+        self.data = data
+        self.next = None
+'''
+
+class Solution:
+    def addOne(self, head):
+        num = 0
+        current = head
+        while current:
+            num = num * 10 + current.data
+            current = current.next
+        
+        num += 1
+        
+        dummy_head = Node(0)
+        current = dummy_head
+        for digit in str(num):
+            current.next = Node(int(digit))
+            current = current.next
+        
+        return dummy_head.next
