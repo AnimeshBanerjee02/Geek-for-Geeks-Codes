@@ -1,0 +1,48 @@
+#User function Template for python3
+
+from collections import deque, defaultdict
+
+class Solution:
+    def minTime(self, root, target):
+        if not root:
+            return 0
+        
+        parent_map = {}
+        target_node = None
+        
+        def map_parents(node, parent=None):
+            nonlocal target_node
+            if not node:
+                return
+            if node.data == target:
+                target_node = node
+            parent_map[node] = parent
+            map_parents(node.left, node)
+            map_parents(node.right, node)
+        
+        map_parents(root)
+        
+        q = deque([(target_node, 0)]) 
+        visited = set()
+        visited.add(target_node)
+        
+        max_time = 0
+        
+        while q:
+            node, time = q.popleft()
+            max_time = max(max_time, time)
+            
+            if node.left and node.left not in visited:
+                visited.add(node.left)
+                q.append((node.left, time + 1))
+            
+            if node.right and node.right not in visited:
+                visited.add(node.right)
+                q.append((node.right, time + 1))
+            
+            parent = parent_map[node]
+            if parent and parent not in visited:
+                visited.add(parent)
+                q.append((parent, time + 1))
+        
+        return max_time
