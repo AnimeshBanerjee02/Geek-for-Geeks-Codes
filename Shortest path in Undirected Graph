@@ -1,0 +1,25 @@
+#User function Template for python3
+
+from collections import deque, defaultdict
+
+class Solution:
+    def shortestPath(self, edges, n, m, src):
+        graph = defaultdict(list)
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        dist = [-1] * n
+        dist[src] = 0
+        
+        queue = deque([src])
+        
+        while queue:
+            node = queue.popleft()
+            
+            for neighbor in graph[node]:
+                if dist[neighbor] == -1:  
+                    dist[neighbor] = dist[node] + 1
+                    queue.append(neighbor)
+        
+        return dist
