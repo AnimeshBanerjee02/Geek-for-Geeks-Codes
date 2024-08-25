@@ -1,0 +1,38 @@
+#User function Template for python3
+
+import bisect
+
+class Solution:
+    
+    def countPairs(self, arr, brr):
+        def countForX(x):
+            if x == 0:
+                return 0
+            if x == 1:
+                return numY[0]
+            
+            idx = bisect.bisect_right(brr, x)
+            count = len(brr) - idx
+
+            if x == 2:
+                count -= (numY[3] + numY[4])
+            
+            if x == 3:
+                count += numY[2]
+            
+            count += (numY[0] + numY[1])
+            
+            return count
+        
+        brr.sort()
+        
+        numY = [0] * 5
+        for y in brr:
+            if y < 5:
+                numY[y] += 1
+        
+        total_pairs = 0
+        for x in arr:
+            total_pairs += countForX(x)
+        
+        return total_pairs
