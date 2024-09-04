@@ -1,0 +1,5 @@
+#User function Template for python3
+
+class Solution:
+    def nthStair(self, n):
+        return 1 + (n // 2)
