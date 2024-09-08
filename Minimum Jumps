@@ -1,0 +1,18 @@
+#User function Template for python3
+class Solution:
+	def minJumps(self, arr):
+	    #code here
+        
+        from collections import deque
+        # tuple(reached-sofar, jumps)
+        q = deque([(0, 0)]) # reached position is 0 and jumps is 0 initially
+        for i, e in enumerate(arr):
+            while q and q[0][0] < i: # can't reach this far, q[0] become invalid
+                q.popleft()
+            if not q:
+                return -1
+            if i+e > q[0][0]: # can go further by 1 jump
+                q.append((i+e, q[0][1]+1))
+        if not q:
+            return -1
+        return q.popleft()[1]
