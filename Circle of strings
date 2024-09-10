@@ -1,0 +1,36 @@
+#User function Template for python3
+from collections import defaultdict
+
+class Solution:
+    def isCircle(self, arr):
+        graph = defaultdict(list)
+        in_degree = defaultdict(int)
+        out_degree = defaultdict(int)
+        
+        for word in arr:
+            start = word[0]
+            end = word[-1]
+            graph[start].append(end)
+            out_degree[start] += 1
+            in_degree[end] += 1
+        
+        for char in set(in_degree.keys()).union(out_degree.keys()):
+            if in_degree[char] != out_degree[char]:
+                return 0
+        
+        def dfs(node, visited):
+            visited.add(node)
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    dfs(neighbor, visited)
+        
+        all_chars = set(in_degree.keys()).union(out_degree.keys())
+        start_char = arr[0][0]
+        
+        visited = set()
+        dfs(start_char, visited)
+        
+        if len(visited) != len(all_chars):
+            return 0
+        
+        return 1
