@@ -1,0 +1,9 @@
+# User function Template for python3
+
+class Solution:
+    # Function to reverse words in a given string.
+    def reverseWords(self, str):
+        words = str.split('.')
+        reversed_words = words[::-1]
+        result = '.'.join(reversed_words)
+        return result
