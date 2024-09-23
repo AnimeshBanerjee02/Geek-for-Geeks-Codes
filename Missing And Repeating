@@ -1,0 +1,19 @@
+#User function Template for python3
+
+class Solution:
+    def findTwoElement(self, arr):
+        n = len(arr)
+        A, B = -1, -1
+        
+        for i in range(n):
+            if arr[abs(arr[i]) - 1] > 0:
+                arr[abs(arr[i]) - 1] = -arr[abs(arr[i]) - 1]
+            else:
+                B = abs(arr[i])
+        
+        for i in range(n):
+            if arr[i] > 0:
+                A = i + 1
+                break
+        
+        return B, A
