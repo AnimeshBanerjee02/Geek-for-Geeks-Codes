@@ -1,0 +1,40 @@
+class Solution:
+    
+    def smallestWindow(self, s, p):
+        from collections import Counter
+        
+        if len(p) > len(s):
+            return "-1"
+        
+        p_freq = Counter(p)
+        required = len(p_freq)
+        l, r = 0, 0
+        formed = 0
+        window_counts = {}
+        ans = float("inf"), None, None
+        
+        while r < len(s):
+            char = s[r]
+            window_counts[char] = window_counts.get(char, 0) + 1
+            
+            if char in p_freq and window_counts[char] == p_freq[char]:
+                formed += 1
+            
+            while l <= r and formed == required:
+                char = s[l]
+                
+                if r - l + 1 < ans[0]:
+                    ans = (r - l + 1, l, r)
+                
+                window_counts[char] -= 1
+                if char in p_freq and window_counts[char] < p_freq[char]:
+                    formed -= 1
+                
+                l += 1
+            
+            r += 1
+        
+        if ans[0] == float("inf"):
+            return "-1"
+        else:
+            return s[ans[1]: ans[2] + 1]
