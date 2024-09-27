@@ -1,0 +1,14 @@
+#User function Template for python3
+
+class Solution:
+    def max_of_subarrays(self,k,arr):
+        import heapq
+        ret=[]
+        hq=[]
+        for ix,ve in enumerate(arr):
+            heapq.heappush(hq,(-ve,ix))
+            if ix>=k-1:
+                while hq[0][1]<=ix-k:
+                    heapq.heappop(hq)
+                ret.append(-hq[0][0])
+        return ret
