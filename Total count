@@ -1,0 +1,8 @@
+#User function Template for python3
+
+class Solution:
+    def totalCount(self, k, arr):
+        total = 0
+        for num in arr:
+            total += (num + k - 1) // k  # This is equivalent to ceil(num / k)
+        return total
