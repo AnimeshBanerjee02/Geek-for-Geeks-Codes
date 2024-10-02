@@ -1,0 +1,15 @@
+class Solution:
+    def rotateDelete(self, arr):
+        k = 1
+        while len(arr) > 1:
+            # Rotate the array
+            arr.insert(0, arr.pop())
+            
+            # Remove the (n - k + 1)th element
+            arr.pop(len(arr) - k)
+            k += 1
+            
+            if k > len(arr):
+                break
+        
+        return arr[0]
