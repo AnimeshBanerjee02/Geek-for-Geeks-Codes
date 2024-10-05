@@ -1,0 +1,12 @@
+#User function Template for python3
+
+class Solution:
+    def findSmallest(self, arr):
+        res = 1
+        
+        for num in arr:
+            if num > res:
+                return res
+            res += num
+        
+        return res
