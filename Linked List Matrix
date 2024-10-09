@@ -1,0 +1,29 @@
+# User function Template for python3
+
+class Node():
+    def __init__(self, x):
+        self.data = x
+        self.right = None
+        self.down = None
+
+class Solution:
+    def constructLinkedMatrix(self, mat):
+        n = len(mat)
+
+        if n == 0:
+            return None
+
+        head = [[None for _ in range(n)] for _ in range(n)]
+
+        for i in range(n):
+            for j in range(n):
+                head[i][j] = Node(mat[i][j])
+
+        for i in range(n):
+            for j in range(n):
+                if j < n - 1:
+                    head[i][j].right = head[i][j + 1]
+                if i < n - 1:
+                    head[i][j].down = head[i + 1][j]
+
+        return head[0][0]
