@@ -1,0 +1,12 @@
+class Solution:
+    def maxDistance(self, arr):
+        first_occurrence = {}
+        max_dist = 0
+
+        for i in range(len(arr)):
+            if arr[i] in first_occurrence:
+                max_dist = max(max_dist, i - first_occurrence[arr[i]])
+            else:
+                first_occurrence[arr[i]] = i
+
+        return max_dist
