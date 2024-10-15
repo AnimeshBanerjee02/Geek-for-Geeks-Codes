@@ -1,0 +1,26 @@
+# User function Template for python3
+
+class Solution:
+    
+    # Complete this function
+    # Function to count the number of subarrays which adds to the given sum.
+    def subArraySum(self, arr, tar):
+        prefix_sum_freq = {}
+        
+        prefix_sum = 0
+        count = 0
+        
+        prefix_sum_freq[0] = 1
+        
+        for num in arr:
+            prefix_sum += num
+            
+            if prefix_sum - tar in prefix_sum_freq:
+                count += prefix_sum_freq[prefix_sum - tar]
+            
+            if prefix_sum in prefix_sum_freq:
+                prefix_sum_freq[prefix_sum] += 1
+            else:
+                prefix_sum_freq[prefix_sum] = 1
+        
+        return count
