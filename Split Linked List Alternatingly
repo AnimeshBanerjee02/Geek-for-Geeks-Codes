@@ -1,0 +1,40 @@
+#User function Template for python3
+'''
+class Node:
+    def _init_(self, data):
+        self.data = data
+        self.next = None
+
+'''
+
+class Solution:
+    def alternatingSplitList(self, head):
+        if not head:  
+            return [None, None]
+
+        a_head = None
+        b_head = None
+        a_tail = None
+        b_tail = None
+
+        current = head
+        toggle = True  
+
+        while current:
+            if toggle:  
+                if a_head is None:
+                    a_head = a_tail = Node(current.data)
+                else:
+                    a_tail.next = Node(current.data)
+                    a_tail = a_tail.next
+            else: 
+                if b_head is None:
+                    b_head = b_tail = Node(current.data)
+                else:
+                    b_tail.next = Node(current.data)
+                    b_tail = b_tail.next
+
+            current = current.next
+            toggle = not toggle
+
+        return [a_head, b_head]
