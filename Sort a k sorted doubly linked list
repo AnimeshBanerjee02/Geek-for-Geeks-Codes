@@ -1,0 +1,45 @@
+#User function Template for python3
+'''
+class DLLNode:
+    def __init__(self,val) -> None:
+        self.data = val
+        self.prev = None
+        self.next = None
+'''
+class Solution:
+    def sortAKSortedDLL(self, head, k):
+        if not head:
+            return head
+        
+        # Min-heap to sort the linked list
+        pq = []
+        
+        # Push the first k+1 nodes into the priority queue
+        i = 0
+        current = head
+        while i < k + 1 and current:
+            heapq.heappush(pq, current.data)
+            current = current.next
+            i += 1
+        
+        # Initialize a dummy node to build the sorted list
+        dummy = DLLNode(-1)
+        prevs = None
+        temp = dummy
+        
+        while pq:
+            top = heapq.heappop(pq)
+            
+            # Create a new node with the smallest element
+            temp.next = DLLNode(top)
+            temp.next.prev = temp  # Link with previous node
+            prevs = temp
+            temp = temp.next
+            
+            # Push the next node from the unsorted part into the heap
+            if current:
+                heapq.heappush(pq, current.data)
+                current = current.next
+        
+        # Return the head of the sorted list (skip the dummy node)
+        return dummy.next
