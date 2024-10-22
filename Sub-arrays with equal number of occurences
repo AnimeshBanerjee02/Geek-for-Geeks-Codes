@@ -1,0 +1,14 @@
+#User function Template for python3
+
+class Solution:
+    def sameOccurrence(self, arr, x, y):
+        from collections import defaultdict
+        cnt=defaultdict(int)
+        cnt[0]=1
+        pfs=0
+        ret=0
+        for ve in arr:
+            pfs+=1 if ve==x else -1 if ve==y else 0
+            ret+=cnt[pfs]
+            cnt[pfs]+=1
+        return ret
