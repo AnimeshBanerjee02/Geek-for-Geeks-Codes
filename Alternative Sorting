@@ -1,0 +1,14 @@
+class Solution:
+    def alternateSort(self,arr):
+        a = sorted(arr)
+        i = 0
+        j= len(arr)-1
+        b = []
+        while i<j:
+            b.append(a[j])
+            b.append(a[i])
+            i+=1
+            j-=1
+        if len(arr)%2 != 0:
+            b.append(a[i])
+        return b
