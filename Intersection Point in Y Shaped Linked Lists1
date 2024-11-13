@@ -1,0 +1,37 @@
+#User function Template for python3
+'''
+	Function to return the value at point of intersection
+	in two linked list, connected in y shaped form.
+	
+	Function Arguments: head_a, head_b (heads of both the lists)
+	
+	Return Type: value in NODE present at the point of intersection
+	             or -1 if no common point.
+
+	Contributed By: Nagendra Jha
+
+	{
+		# Node Class
+		class Node:
+		    def __init__(self, data):   # data -> value stored in node
+		        self.data = data
+		        self.next = None
+	}
+'''
+
+#Function to find intersection point in Y shaped Linked Lists.
+def intersetPoint(head1,head2):
+    #code here
+    arr1=[]
+    arr2=[]
+    while head1:
+        arr1.append(head1)
+        head1=head1.next
+    while head2:
+        arr2.append(head2)
+        head2=head2.next
+    if arr2[-1]!=arr1[-1]:
+        return -1
+    for i in range(-1,-min(len(arr1),len(arr2))-1,-1):
+        if arr1[i]!=arr2[i] :
+            return arr1[i+1].data
