@@ -1,0 +1,6 @@
+#User function Template for python3
+class Solution:
+    def getSecondLargest(self, arr):
+        unique_sorted_arr = sorted(set(arr), reverse=True)
+        
+        return unique_sorted_arr[1] if len(unique_sorted_arr) > 1 else -1
