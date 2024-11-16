@@ -1,0 +1,13 @@
+#User function Template for python3
+
+class Solution:
+    def pushZerosToEnd(self,arr):
+        # code here
+        z=0
+        a=[]
+        for i in arr:
+            if i==0:
+                z+=1
+            else:
+                a.append(i)
+        arr[:]=a+[0]*z
