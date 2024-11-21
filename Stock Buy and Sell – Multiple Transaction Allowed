@@ -1,0 +1,18 @@
+from typing import List
+
+
+class Solution:
+    def maximumProfit(self, prices) -> int:
+        n = len(prices)
+        if n == 0:  
+            return 0
+
+        dp = [[0] * 2 for _ in range(n + 1)]
+        for ind in range(n - 1, -1, -1):
+            for flag in range(2):
+                if flag == 0: 
+                    dp[ind][flag] = max(-prices[ind] + dp[ind + 1][1], dp[ind + 1][0])
+                else:  
+                    dp[ind][flag] = max(prices[ind] + dp[ind + 1][0], dp[ind + 1][1])
+
+        return dp[0][0]
