@@ -1,0 +1,14 @@
+#User function Template for python3
+
+class Solution:
+    ##Complete this function
+    def maxSubArraySum(self,arr):
+        ##Your code here
+        gsum,csum=arr[0],arr[0]
+        for i in arr[1:]:
+            if csum>=0:
+                csum+=i
+            else:
+                csum=i
+            gsum=max(gsum,csum)
+        return gsum
