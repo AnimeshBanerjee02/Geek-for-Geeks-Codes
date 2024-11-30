@@ -1,0 +1,14 @@
+#User function Template for python3
+
+
+class Solution:
+    
+    #Function is to check whether two strings are anagram of each other or not.
+    def areAnagrams(self, s1, s2):
+        list1 = list(s1)
+        list2 = list(s2)
+        list1.sort()
+        list2.sort()
+        if list1 == list2:
+            return True
+        return False
