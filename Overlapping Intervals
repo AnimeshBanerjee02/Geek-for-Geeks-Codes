@@ -1,0 +1,14 @@
+class Solution:
+	def mergeOverlap(self, arr):
+        #Code here
+        n = len(arr)
+        arr.sort(key = lambda x : x[0])
+        index = 0
+        res = [arr[0]]
+        for i in range(1,n):
+            if res[index][1] >= arr[i][0]:
+                res[index] = [min(res[index][0],arr[i][0]), max(res[index][1],arr[i][1])]
+            else:
+                res.append(arr[i])
+                index+=1
+        return res
