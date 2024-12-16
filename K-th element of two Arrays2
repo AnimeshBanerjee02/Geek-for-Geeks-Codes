@@ -1,0 +1,38 @@
+#User function Template for python3
+
+
+class Solution:
+
+    def kthElement(self, a, b, k):
+        comb=[]
+        i,j=0,0
+        while i<len(a) and j<len(b):
+            if a[i]<b[j]:
+                comb.append(a[i])
+                i+=1
+            else:
+                comb.append(b[j])
+                j+=1
+            k-=1
+            if not k:
+                return comb[-1]
+        while i<len(a):
+            comb.append(a[i])
+            i+=1
+            k-=1
+            if not k:
+                return comb[-1]
+        while j<len(b):
+            comb.append(b[j])
+            j+=1
+            k-=1
+            if not k:
+                return comb[-1]
+        return -1
+
+class Solution1:
+
+    def kthElement(self, a, b, k):
+        a.extend(b)
+        a.sort()
+        return a[k-1]
