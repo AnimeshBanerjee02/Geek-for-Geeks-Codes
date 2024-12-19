@@ -1,0 +1,17 @@
+#User function Template for python3
+class Solution:
+    def kthMissing(self, arr, k):
+        curr = 1
+        notFound = 0
+        
+        for i in range(len(arr)):
+            while curr != arr[i]:
+                curr += 1
+                notFound += 1
+                
+                if notFound == k:
+                    return curr - 1
+                    
+            curr += 1        
+        
+        return arr[len(arr) - 1] + k - notFound
