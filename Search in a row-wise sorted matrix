@@ -1,0 +1,16 @@
+
+#User function Template for python3
+
+class Solution:
+    
+    #Function to search a given number in row-column sorted matrix.
+    def searchRowMatrix(self, mat, x): 
+        n, m = len(mat), len(mat[0])
+        for i in range(n):
+            if mat[i][0]<=x and mat[i][m-1]>=x:
+                for j in mat[i]:
+                    if j == x:
+                        return True
+        return False
+
+ 
