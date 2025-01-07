@@ -1,0 +1,17 @@
+#User function Template for python3
+
+
+class Solution:
+    def countPairs (self, arr, target) : 
+        #Complete the function
+        freq = {}
+        cnt = 0
+        for ele in arr: 
+            if target - ele in freq: 
+                cnt += freq[target - ele]
+            if ele in freq:
+                freq[ele] +=1
+            else:
+                freq[ele] =1
+        return cnt
+ 
