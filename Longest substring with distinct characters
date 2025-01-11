@@ -1,0 +1,22 @@
+#User function Template for python3
+
+class Solution:
+    def longestUniqueSubstr(self, s):
+        # code here
+        ans=0
+        
+        mp={}
+        n=len(s)
+        i=0
+        j=0
+        
+        while i<n:
+            
+            if s[i] in mp and mp[s[i]]>=j:
+                j=mp[s[i]]+1
+            
+            mp[s[i]]=i
+            ans = max(ans,i-j+1)
+            i+=1
+        
+        return ans
