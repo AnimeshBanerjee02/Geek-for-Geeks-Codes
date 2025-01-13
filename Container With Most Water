@@ -1,0 +1,15 @@
+
+class Solution:
+    def maxWater(self, height):
+        start=0
+        stop=len(height)-1
+        area=(stop-start)*min(height[start],height[stop])
+        while start<stop:
+            if height[start]>=height[stop]:
+                stop-=1
+            elif height[start]<=height[stop]:
+                start+=1
+            
+            area=max(area,(stop-start)*min(height[start],height[stop])) 
+            
+        return area
