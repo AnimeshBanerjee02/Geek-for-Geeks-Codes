@@ -1,0 +1,15 @@
+# User function Template for python3
+
+class Solution:
+    #Function to find equilibrium point in the array.
+    def findEquilibrium(self, arr):
+        l = 0
+        r = sum(arr)
+        
+        for i in range(len(arr)):
+            r -= arr[i]
+            if l == r:
+                return i
+            l += arr[i]
+        else:
+            return -1
