@@ -1,0 +1,12 @@
+class Solution:
+    def maxLen(self, arr):
+        curr_balance, max_length, prefix_balance = 0, 0, {0: -1}
+        for i, a in enumerate(arr):
+            curr_balance += 1 if a else -1
+            if curr_balance in prefix_balance:
+                length = i - prefix_balance[curr_balance]
+                if length > max_length:
+                    max_length = length
+            else:
+                prefix_balance[curr_balance] = i
+        return max_length
