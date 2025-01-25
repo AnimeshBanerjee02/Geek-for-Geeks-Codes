@@ -1,0 +1,29 @@
+#User function Template for python3
+
+""" Node Class
+    class Node:
+        def __init__(self, data):   # data -> value stored in node
+            self.data = data
+            self.next = None
+"""
+class Solution:
+    def findFirstNode(self, head):
+        slow = head
+        fast = head
+        
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            
+            if fast == slow:
+                break
+        
+        if fast != slow:
+            return None
+        
+        slow = head
+        while slow != fast:
+            fast = fast.next
+            slow = slow.next
+        
+        return slow
