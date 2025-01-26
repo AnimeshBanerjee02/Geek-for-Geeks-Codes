@@ -1,0 +1,22 @@
+'''
+# node class:
+
+class Node:
+    def __init__(self,val):
+        self.next=None
+        self.data=val
+
+'''
+
+class Solution:
+    #Function to remove a loop in the linked list.
+    def removeLoop(self, head):
+        temp = head
+        d = {}  
+        while temp:
+            if temp.next in d:  
+                temp.next = None  
+                break  
+            else:
+                d[temp] = 1 
+            temp = temp.next
