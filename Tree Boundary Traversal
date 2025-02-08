@@ -1,0 +1,59 @@
+#User function Template for python3
+
+'''
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+'''
+class Solution:
+    def boundaryTrav(self, root, result, side):
+        cur_root  = root
+        tmp = []
+        while cur_root:
+            
+            if cur_root.left or cur_root.right:
+                tmp.append(cur_root.data)
+                
+            if side == "left":
+                if cur_root.left:
+                    cur_root = cur_root.left
+                else:
+                    cur_root = cur_root.right
+            else:
+                if cur_root.right:
+                    cur_root = cur_root.right
+                else:
+                    cur_root = cur_root.left
+
+        if side == "left":
+            result.extend(tmp)
+        else:
+            result.extend(tmp[::-1])
+            
+    def leafs(self, root, result):
+        queue = [root]
+        tmp = []
+        while queue:
+            cur = queue.pop()
+            
+            if not cur.left and not cur.right:
+                tmp.append(cur.data)
+                
+            if cur.left:
+                queue.append(cur.left)
+            if cur.right:
+                queue.append(cur.right)
+        result.extend(tmp[::-1])
+
+    def boundaryTraversal(self, root):
+        result = []
+        if not root:
+            return result
+        if root.left or root.right:
+            result.append(root.data)
+        self.boundaryTrav(root.left, result, "left")
+        self.leafs(root, result)
+        self.boundaryTrav(root.right, result, "right")
+        return result
