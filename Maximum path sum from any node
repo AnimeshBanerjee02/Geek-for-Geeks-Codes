@@ -1,0 +1,34 @@
+#User function Template for python3
+
+
+'''
+class Node:
+    def __init__(self,val):
+        self.data = val
+        self.left = None
+        self.right = None
+'''
+
+class Solution:
+    #Function to return maximum path sum from any node in a tree.
+    def findMaxSum(self, root): 
+        #Your code here
+        lt = [-10000000000]
+        mx = self.sol(root,lt)
+        mr = max(lt)
+        return max(mr,mx)
+    def sol(self,root,lt):
+        if root.left == None and root.right == None:
+            return root.data
+        else:
+            m1 = -10000000000
+            m2 = -10000000000
+            if root.left != None:
+                m1 = self.sol(root.left,lt)
+                
+            if root.right != None:
+                m2 = self.sol(root.right,lt)
+                
+            
+            lt.append(max(m1+m2+root.data,m1,m2))
+            return max(m1+root.data,m2+root.data,root.data)
