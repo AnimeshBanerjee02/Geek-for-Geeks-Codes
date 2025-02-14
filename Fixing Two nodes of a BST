@@ -1,0 +1,39 @@
+'''
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+'''
+
+class Solution:
+    def correctBST(self, root):
+    # your code here
+        c, stack = [], []
+        while root:
+            stack.append(root)
+            root = root.left
+        
+        while stack:
+            cur = stack.pop()
+            c.append(cur)
+            cur = cur.right
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+        
+        i = 0
+        while i < len(c) - 1:
+            if c[i].data > c[i+1].data:
+                break
+            i += 1
+            
+        j = len(c)-1
+        while j > 0:
+            if c[j].data < c[j-1].data:
+                break
+            j -= 1
+        
+        c[i].data, c[j].data = c[j].data, c[i].data
+
+        return root
