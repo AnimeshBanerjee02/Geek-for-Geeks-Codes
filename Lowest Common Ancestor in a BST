@@ -1,0 +1,21 @@
+'''
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+'''
+
+class Solution:
+    def LCA(self, root, n1, n2):
+        n1,n2=sorted([n1,n2],key=lambda x:x.data)
+        def dfs(cur=root):
+            if not cur:
+                return None
+            if n1.data<=cur.data<=n2.data:
+                return cur
+            elif cur.data<n1.data:
+                return dfs(cur.right)
+            else:
+                return dfs(cur.left)
+        return dfs()
