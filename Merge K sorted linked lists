@@ -1,0 +1,24 @@
+#User function Template for python3
+'''
+class Node:
+    def _init_(self,x):
+        self.data = x
+        self.next = None
+'''
+from heapq import *
+class Solution:
+    def mergeKLists(self, arr):
+        # code here
+        # return head of merged list
+        pnt_arr = []
+        for head in arr:
+            heappush(pnt_arr, [head.data, head])
+        res = Node(0)
+        curr = res
+        while pnt_arr:
+            val, head = heappop(pnt_arr)
+            curr.next = Node(val)
+            head = head.next
+            if head: heappush(pnt_arr, [head.data, head])
+            curr = curr.next
+        return res.next
