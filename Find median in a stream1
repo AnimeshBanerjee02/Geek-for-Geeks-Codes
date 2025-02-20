@@ -1,0 +1,26 @@
+
+class Solution:
+    def getMedian(self, arr):
+        if len(arr) <= 1:
+            return arr.copy()
+        from heapq import heappop, heappush
+        a, b = arr[:2]
+        output = [a, (a + b) / 2]
+        if a > b:
+            a, b = b, a
+        lo_h, hi_h = [-a], [b]
+        for i in range(2, len(arr)):
+            a = arr[i]
+            if a < -lo_h[0]:
+                heappush(lo_h, -a)
+                if len(lo_h) > len(hi_h):
+                    heappush(hi_h, -heappop(lo_h))
+            else:
+                heappush(hi_h, a)
+                if len(hi_h) - len(lo_h) > 1:
+                    heappush(lo_h, -heappop(hi_h))
+            if len(lo_h) == len(hi_h):
+                output.append((-lo_h[0] + hi_h[0]) / 2)
+            else:
+                output.append(hi_h[0])
+        return output
