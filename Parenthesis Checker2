@@ -1,0 +1,16 @@
+class Solution:
+    def isBalanced(self, s):
+        # code here
+        h={')':'(','}':'{',']':'['}
+        stk=[]
+        for i in s:
+            if i not in h:
+                stk.append(i)
+            else :
+                if not stk:
+                    return False
+                else:
+                    popped=stk.pop()
+                    if popped!=h[i]:
+                        return False
+        return not stk
