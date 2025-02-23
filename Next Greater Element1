@@ -1,0 +1,13 @@
+# User function Template for python3
+
+class Solution:
+    def nextLargerElement(self, arr):
+        ret=[]
+        stk=[]
+        for ix in range(len(arr)-1,-1,-1):
+            ve=arr[ix]
+            while stk and stk[-1]<=ve:
+                stk.pop()
+            ret.append(stk[-1] if stk else -1)
+            stk.append(ve)
+        return ret[::-1]
