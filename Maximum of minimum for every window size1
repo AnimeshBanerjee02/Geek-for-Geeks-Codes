@@ -1,0 +1,28 @@
+
+class Solution:
+    def maxOfMins(self, arr):
+        n = len(arr)
+        right = [n]*n
+        stack = []
+        for i, e in enumerate(arr):
+            while stack and arr[stack[-1]] > e:
+                right[stack.pop()] = i 
+            stack.append(i)
+
+        left = [-1]*n
+        stack = []
+        for i in range(n-1, -1, -1):
+            e = arr[i]
+            while stack and arr[stack[-1]] > e:
+                left[stack.pop()] = i
+            stack.append(i)
+
+        ans = [0]*n
+        for i in range(n-1, -1, -1):
+            r = right[i]-left[i]-1
+            ans[r-1] = max(ans[r-1], arr[i])
+
+        for i in range(n-2, -1, -1):
+            ans[i] = max(ans[i], ans[i+1])
+   
+        return ans
