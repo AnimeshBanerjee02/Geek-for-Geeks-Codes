@@ -1,0 +1,25 @@
+class Solution:
+
+    def __init__(self):
+        self.s=[]
+        self.minEle=None
+        
+    # Add an element to the top of Stack
+    def push(self,x):
+        self.minEle = min(x, self.minEle) if self.s else x
+        self.s.append(x)
+
+    # Remove the top element from the Stack
+    def pop(self):
+        topEle = self.s.pop() if self.s else -1
+        if topEle == self.minEle:
+            self.minEle = min(self.s) if self.s else None
+        return topEle
+
+    # Returns top element of Stack
+    def peek(self):
+        return self.s[-1] if self.s else -1
+
+    # Finds minimum element of Stack
+    def getMin(self):
+        return self.minEle if self.s else -1
