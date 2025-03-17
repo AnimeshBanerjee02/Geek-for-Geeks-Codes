@@ -1,0 +1,14 @@
+class Solution:
+    def isSubsetSum (self, arr, ssum):
+        dp = [-1 for _ in range(ssum + 1)]
+        dp[0] = 0
+        
+        for i in range(len(arr)):
+            if arr[i] > ssum:
+                continue
+            
+            for j in range(arr[i], ssum + 1):
+                if dp[j] == -1 and dp[j - arr[i]] != -1 and dp[j - arr[i]] != i + 1:
+                    dp[j] = i + 1
+        
+        return dp[ssum] != -1
