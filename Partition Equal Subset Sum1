@@ -1,0 +1,21 @@
+class Solution:
+    def equalPartition(self, arr):
+        # code here
+        def f(ind, target):
+            if target == 0:
+                return True
+            if ind >= n:
+                return False
+            if (ind, target) in dp:
+                return dp[(ind, target)]
+            p1 = False
+            if arr[ind] <= target:
+                p1 = f(ind + 1, target - arr[ind])
+            p2 = f(ind + 1, target)
+            dp[(ind, target)] = p1 or p2
+            return p1 or p2
+        s, n, dp = sum(arr), len(arr), {}
+        if s%2 == 1:
+            return False
+        else:
+            return f(0, s//2)
