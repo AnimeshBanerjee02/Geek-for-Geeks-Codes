@@ -1,0 +1,23 @@
+class Solution:
+    def maxValue(self, arr):
+        n = len(arr)
+        if n == 0:
+            return 0
+        if n == 1:
+            return arr[0]
+        
+        def solve_space(s, e):
+            next1 = 0
+            next2 = 0
+            for i in range(e-1, s-1, -1):
+                inc = arr[i]
+                if i + 2 < e:
+                    inc += next2
+                exc = next1
+                curr = max(inc, exc)
+                next2, next1 = next1, curr
+            return next1
+        
+        left = solve_space(0, n-1)
+        right = solve_space(1, n)
+        return max(left, right)
