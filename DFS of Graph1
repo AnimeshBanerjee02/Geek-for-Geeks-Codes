@@ -1,0 +1,16 @@
+#User function Template for python3
+
+class Solution:
+    def dfs(self, graph):
+        visited = set()
+        res=[]
+        def dfs_gen(node):
+            if node in visited:
+                return
+            visited.add(node)
+            res.append(node)
+            for neighbor in graph[node]:
+                dfs_gen(neighbor)
+                
+        dfs_gen(0)
+        return res
